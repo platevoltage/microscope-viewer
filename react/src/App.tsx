@@ -9,12 +9,12 @@ function App() {
   },[]);
   function getVideo() {
     navigator.mediaDevices
-      .getUserMedia({ video: { width: 300 } })
+      .getUserMedia({ video: true })
       .then(stream => {
         let video = videoElement.current;
         if (video) {
           video.srcObject = stream;
-          video.play();
+          // video.play();
         }
       })
       .catch(err => {
