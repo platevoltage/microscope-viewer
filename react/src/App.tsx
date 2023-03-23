@@ -1,6 +1,7 @@
 import {useState, useEffect, useRef} from 'react';
 import './App.css';
 import Video from "./components/Video"
+import HUD from './components/HUD';
 
 function App() {
   const [width, setWidth] = useState(100);
@@ -12,6 +13,7 @@ function App() {
   return (
     <div className="App" id="container" onClick={zoomIn}>
       <Video height={height} width={width}/>
+      <HUD />
     </div>
   );
 }
