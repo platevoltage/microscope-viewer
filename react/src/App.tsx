@@ -3,6 +3,8 @@ import './App.css';
 
 function App() {
   const videoElement = useRef<HTMLVideoElement>(null);
+  const [width, setWidth] = useState(100);
+  const [height, setHeight] = useState(100);
 
   useEffect(() => {
     getVideo();
@@ -35,14 +37,18 @@ function App() {
         console.error("error:", err);
       });
   };
+  function zoomIn() {
+    setHeight(height+10);
+    setWidth(width+10);
+  }
   async function getDevices() {
     const devices = await navigator.mediaDevices.enumerateDevices();
     console.log(devices);
   }
 
   return (
-    <div className="App" id="container">
-      <video autoPlay={true} id="videoElement" ref={videoElement}>
+    <div className="App" id="container" onClick={zoomIn}>
+      <video autoPlay={true} id="videoElement" ref={videoElement} style={{height: `${height}vh`, width: `${width}vw`}}>
       
       </video>
     </div>
