@@ -1,11 +1,11 @@
-import { app, BrowserWindow, Menu } from 'electron';
+import { app, BrowserWindow, Menu, systemPreferences } from 'electron';
 import * as path from 'path';
 
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 780,
     height: 550,
-    title: "Stella Invoice",
+    title: "Microscope",
     // fullscreen: true,
     // kiosk: true,
     // visualEffectState: "active",
@@ -13,7 +13,7 @@ const createWindow = () => {
     resizable: false,
     // maximizable: false,
     // movable: false,
-    titleBarStyle: "hiddenInset",
+    // titleBarStyle: "hiddenInset",
     // useContentSize: true,
     // frame: false,
     // show: false,
@@ -48,6 +48,7 @@ app.whenReady().then(async () => {
     }
   ]);
   Menu.setApplicationMenu(menu);
+  systemPreferences.askForMediaAccess("camera");
 })
 
 
