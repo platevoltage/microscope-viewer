@@ -10,7 +10,7 @@ const createWindow = () => {
     // kiosk: true,
     // visualEffectState: "active",
     // vibrancy: 'sidebar',
-    resizable: false,
+    // resizable: false,
     // maximizable: false,
     // movable: false,
     // titleBarStyle: "hiddenInset",
