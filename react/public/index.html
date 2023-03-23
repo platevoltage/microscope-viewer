@@ -39,5 +39,22 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+    <!-- <script>
+      setTimeout(() => {
+
+        var video = document.querySelector("#videoElement");
+        console.log(video);
+        
+        if (navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices.getUserMedia({ video: true })
+          .then(function (stream) {
+            video.srcObject = stream;
+          })
+          .catch(function (err0r) {
+            console.log("Something went wrong!");
+          });
+        }
+      },4000);
+      </script> -->
+    </body>
 </html>
