@@ -10,10 +10,14 @@ function App() {
       setHeight(height+10);
       setWidth(width+10);
   }
+  function zoomOut() {
+    if (height > 100) setHeight(height-10);
+    if (width > 100) setWidth(width-10);
+}
   return (
-    <div className="App" id="container" onClick={zoomIn}>
+    <div className="App" id="container">
       <Video height={height} width={width}/>
-      <HUD />
+      <HUD zoomIn={zoomIn} zoomOut={zoomOut}/>
     </div>
   );
 }
