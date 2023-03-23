@@ -6,14 +6,14 @@ function App() {
 
   useEffect(() => {
     getVideo();
-    // getDevices();
+    getDevices();
   },[]);
   function getVideo() {
     navigator.mediaDevices
       .getUserMedia({ 
         video: {
           deviceId: {
-            exact: "8772118CA0398C5472E334DF14A5C527F57AE791",
+            exact: "f6645729ac74f1e32f0c8d7bf2c193a57a08b2d70a48844e686b3a7f73d41aac",
           },
         },
         

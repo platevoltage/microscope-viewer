@@ -47,7 +47,7 @@ app.whenReady().then(async () => {
       ]
     }
   ]);
-  Menu.setApplicationMenu(menu);
+  // Menu.setApplicationMenu(menu);
   systemPreferences.askForMediaAccess("camera");
 })
 
