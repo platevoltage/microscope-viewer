@@ -10,12 +10,16 @@
 
 #container {
 	margin: 0px auto;
-	width: 500px;
-	height: 375px;
-	border: 10px #333 solid;
+	width: 100vw;
+	height: 100vh;
+  /* border: 10px #333 solid; */
 }
 #videoElement {
-	width: 500px;
-	height: 375px;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  object-fit: cover; 
 	background-color: #666;
+
 }
