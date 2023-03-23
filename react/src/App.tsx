@@ -6,10 +6,18 @@ function App() {
 
   useEffect(() => {
     getVideo();
+    // getDevices();
   },[]);
   function getVideo() {
     navigator.mediaDevices
-      .getUserMedia({ video: true })
+      .getUserMedia({ 
+        video: {
+          deviceId: {
+            exact: "8772118CA0398C5472E334DF14A5C527F57AE791",
+          },
+        },
+        
+      })
       .then(stream => {
         let video = videoElement.current;
         if (video) {
@@ -21,6 +29,11 @@ function App() {
         console.error("error:", err);
       });
   };
+  async function getDevices() {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    console.log(devices);
+  }
+
   return (
     <div className="App" id="container">
       <video autoPlay={true} id="videoElement" ref={videoElement}>
