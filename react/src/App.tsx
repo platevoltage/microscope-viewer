@@ -6,22 +6,21 @@ function App() {
   const [width, setWidth] = useState(150);
   const [height, setHeight] = useState(150);
 
+
   useEffect(() => {
     getVideo();
     // getDevices();
-
 
     let mouseDown = false;
     let startX = 0;
     let startY = 0;
     let scrollLeft = 0;
     let scrollTop = 0;
-    // const windowEl = window as unknown as HTMLElement;
     
     let startDragging = function (e: any) {
       mouseDown = true;
-      startX = e.pageX - window.pageXOffset;
-      startY = e.pageY - window.pageYOffset;
+      startX = e.clientX - window.scrollX;
+      startY = e.clientY - window.scrollY;
       scrollLeft = window.scrollX;
       scrollTop = window.scrollY;
     };
@@ -31,22 +30,34 @@ function App() {
     
     window.addEventListener('mousemove', (e) => {
       e.preventDefault();
-      if(!mouseDown) { return; }
-      console.log(e);
-      const x = e.pageX - window.pageXOffset;
-      const y = e.pageY - window.pageYOffset;
-      const scrollX = x - startX;
-      const scrollY = y - startY;
-      window.scrollTo(scrollLeft - scrollX, scrollTop - scrollY);
+      if(!mouseDown) return; 
+
+      const x = e.clientX - window.scrollX;
+      const y = e.clientY - window.scrollY;
+      let scrollX = x - startX;
+      let scrollY = y - startY;
+      console.log(scrollLeft, scrollTop);
+      console.log(scrollX, scrollY);
+      window.scrollTo({
+        // left: scrollLeft - scrollX,
+        top: scrollTop - scrollY,
+        behavior: "smooth"
+        
+      });
     });
     
     // Add the event listeners
-    window.addEventListener('mousedown', startDragging, false);
-    window.addEventListener('mouseup', stopDragging, false);
-    window.addEventListener('mouseleave', stopDragging, false);
+    window.addEventListener('mousedown', startDragging);
+    window.addEventListener('mouseup', stopDragging);
+    window.addEventListener('mouseleave', stopDragging);
 
 
+    return () => {
+      window.removeEventListener('mousedown', startDragging);
+      window.removeEventListener('mouseup', stopDragging);
+      window.removeEventListener('mouseleave', stopDragging);
 
+    }
 
 
 
