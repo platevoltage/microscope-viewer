@@ -4,6 +4,8 @@ import './HUD.css'
 interface Props {
     zoomIn: () => void;
     zoomOut: () => void;
+    rotateCCW: () => void;
+    rotateCW: () => void;
     device?: MediaDeviceInfo;
     setDevice(device: MediaDeviceInfo): void;
     deviceList?: MediaDeviceInfo[];
@@ -16,7 +18,7 @@ async function getDevices() {
 }
 
 
-export default function HUD({zoomIn, zoomOut, device, setDevice, deviceList, setDeviceList}: Props) {
+export default function HUD({zoomIn, zoomOut, rotateCCW, rotateCW, device, setDevice, deviceList}: Props) {
     // const [deviceList, setDeviceList] = useState<MediaDeviceInfo[]>();
     // const [device, setDevice] = useState<string>();
 
@@ -31,6 +33,8 @@ export default function HUD({zoomIn, zoomOut, device, setDevice, deviceList, set
         <div className="HUD">
             <button onClick={zoomIn}>+</button>
             <button onClick={zoomOut}>-</button>
+            <button onClick={rotateCCW}>CCW</button>
+            <button onClick={rotateCW}>CW</button>
             <select name="device-select" id="device-select" onChange={handleChange}>
 
             {deviceList?.map((device, i) =>

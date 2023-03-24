@@ -16,12 +16,13 @@
 }
 #videoElement {
   /* width: 100%; */
-  transition-property: height, width;
+  transition-property: height, width, transform;
   transition-duration: .2s;
   overflow: scroll;
   display: flex;
   justify-content: center;
   object-fit: cover; 
 	background-color: #666;
+  transform: rotate(0deg);
 
 }

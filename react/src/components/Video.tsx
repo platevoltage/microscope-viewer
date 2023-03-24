@@ -3,10 +3,11 @@ import {useState, useEffect, useRef} from 'react';
 interface Props {
     height: number;
     width: number;
+    angle: number;
     device?: MediaDeviceInfo;
 }
 
-export default function Video({height, width, device}: Props) {
+export default function Video({height, width, angle, device}: Props) {
     const videoElement = useRef<HTMLVideoElement>(null);
 
   
@@ -94,7 +95,7 @@ export default function Video({height, width, device}: Props) {
   
   return (
     <div>
-        <video autoPlay={true} id="videoElement" ref={videoElement} style={{height: `${height}vh`, width: `${width}vw`}}>
+        <video autoPlay={true} id="videoElement" ref={videoElement} style={{height: `${height}vh`, width: `${width}vw`, transform: `rotate(${angle}deg)`}}>
       
       </video>
     </div>
