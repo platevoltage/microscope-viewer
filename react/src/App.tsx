@@ -23,7 +23,10 @@ function App() {
   }
 
   useEffect(() => {
-    ( async() => setDeviceList(await getDevices()) )();
+    (async() => {
+        const devices = await getDevices();
+        setDeviceList(devices.filter(devices => devices.kind === "videoinput"));
+    })();
   },[]);
 
   useEffect(() => {

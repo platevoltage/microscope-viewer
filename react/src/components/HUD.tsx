@@ -22,7 +22,7 @@ export default function HUD({zoomIn, zoomOut, device, setDevice, deviceList, set
 
     function handleChange(e: any) {
         const index: number = e.target.value;
-        console.log(index);
+        console.log(deviceList);
         if (deviceList) setDevice(deviceList[index]);
     }
 
@@ -39,7 +39,6 @@ export default function HUD({zoomIn, zoomOut, device, setDevice, deviceList, set
                 </option>    
             )}
             </select>
-            {device?.deviceId}
         </div>
     )
 }
