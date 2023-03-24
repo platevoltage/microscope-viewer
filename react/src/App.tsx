@@ -63,6 +63,7 @@ function App() {
 
   useEffect(() => {
     if (deviceList) setDevice(deviceList[0]);
+    console.log(deviceList);
   },[deviceList]);
 
   useEffect(() => {
