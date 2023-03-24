@@ -9,95 +9,70 @@ interface Props {
 
 export default function Video({height, width, angle, device}: Props) {
     const videoElement = useRef<HTMLVideoElement>(null);
+    const canvasElement = useRef<HTMLCanvasElement>(null);
+    const photoElement = useRef<HTMLImageElement>(null);
 
   
   
     useEffect(() => {
-      getVideo();
-      // getDevices();
-  
-      // let mouseDown = false;
-      // let startX = 0;
-      // let startY = 0;
-      // let scrollLeft = 0;
-      // let scrollTop = 0;
-      
-      // let startDragging = function (e: any) {
-      //   mouseDown = true;
-      //   startX = e.clientX - window.scrollX;
-      //   startY = e.clientY - window.scrollY;
-      //   scrollLeft = window.scrollX;
-      //   scrollTop = window.scrollY;
-      // };
-      // let stopDragging = function (event:any) {
-      //   mouseDown = false;
-      // };
-      
-      // window.addEventListener('mousemove', (e) => {
-      //   e.preventDefault();
-      //   if(!mouseDown) return; 
-  
-      //   const x = e.clientX - window.scrollX;
-      //   const y = e.clientY - window.scrollY;
-      //   let scrollX = x - startX;
-      //   let scrollY = y - startY;
-      //   // console.log(scrollLeft, scrollTop);
-      //   console.log(y);
-      //   window.scrollTo({
-      //     // left: scrollLeft - scrollX,
-      //     top: y,
-      //     behavior: "smooth"
-          
-      //   });
-      // });
-      
-      // // Add the event listeners
-      // window.addEventListener('mousedown', startDragging);
-      // window.addEventListener('mouseup', stopDragging);
-      // window.addEventListener('mouseleave', stopDragging);
-  
-  
-      // return () => {
-      //   window.removeEventListener('mousedown', startDragging);
-      //   window.removeEventListener('mouseup', stopDragging);
-      //   window.removeEventListener('mouseleave', stopDragging);
-  
-      // }
-  
-  
-  
+      getVideo();  
     },[device]);
+
+
+
   
-    function getVideo() {
-      console.log(device?.deviceId);
-      navigator.mediaDevices
-        .getUserMedia({ 
-          video: {
-            deviceId: {
-              // exact: "8772118CA0398C5472E334DF14A5C527F57AE791",
-              exact: device ? device.deviceId : "",
-              // exact: "f6645729ac74f1e32f0c8d7bf2c193a57a08b2d70a48844e686b3a7f73d41aac"
+    async function getVideo() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+            video: {
+              deviceId: {
+                exact: device ? device.deviceId : "",
+              },
+              // height: 200,
+              // width: 200
             },
-          },
-          
         })
-        .then(stream => {
-          let video = videoElement.current;
-          if (video) {
-            video.srcObject = stream;
-          }
-        })
-        .catch(err => {
-          console.error("error:", err);
-        });
+        const {height, width} = stream.getTracks()[0].getSettings();
+        const video = videoElement.current;
+        const canvas = canvasElement.current;
+        
+        
+        const photo = photoElement.current;
+        if (video && canvas) {
+          canvas.height = height || 100;
+          canvas.width = width || 100;
+          canvas.style.width = "1000px";
+          canvas.style.height = "1000px";
+          video.srcObject = stream;
+          const context = canvas.getContext("2d");
+          setTimeout(() => {
+
+            if (context && photo) {
+              console.log(stream.getTracks()[0].getSettings());
+              // context.fillStyle = "#0000ff";
+              // context.fillRect(0, 0, 5000, 5000);  
+              context.drawImage(video, 0, 0);
+              const data = canvas.toDataURL("image/png");
+              photo.setAttribute("src", data);
+            }
+          },2000)
+        }
+      }
+      catch(err) {
+        console.error("error:", err);
+      };
     };
 
   
   return (
-    <div>
-        <video autoPlay={true} id="videoElement" ref={videoElement} style={{height: `${height}vh`, width: `${width}vw`, transform: `rotate(${angle}deg)`}}>
-      
-      </video>
+    <div style={{position: "relative"}}>
+        <div className="output" style={{position: "absolute", backgroundColor: "#ffffff", zIndex: "10", right: 0, top: 0}}>
+          <img id="photo" ref={photoElement} alt="The screen capture will appear in this box." />
+        </div>
+        {/* <div className="output" style={{position: "absolute", backgroundColor: "#ffffff", width: "100px", height: "100px", zIndex: "10", right: 100, bottom: 0}}>
+        </div> */}
+        <video autoPlay={true} id="videoElement" ref={videoElement} style={{height: `${height}vh`, width: `${width}vw`, transform: `rotate(${angle}deg)`}}></video>
+        <canvas id="canvas" ref={canvasElement} style={{display: "none"}}> </canvas>
     </div>
   )
 }
