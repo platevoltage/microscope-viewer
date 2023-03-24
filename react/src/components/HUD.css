@@ -12,3 +12,16 @@
     margin: .1em;
     padding: .3em;
 }
+
+button.snapshot {
+    position: fixed;
+    top: 1em;
+    right: 1em;
+    background-color: #ff0000;
+    border-width: 2px;
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    display: flex;
+    justify-content: center
+}
