@@ -13,7 +13,7 @@ const createWindow = () => {
     // resizable: false,
     // maximizable: false,
     // movable: false,
-    // titleBarStyle: "hiddenInset",
+    titleBarStyle: "hiddenInset",
     // useContentSize: true,
     // frame: false,
     // show: false,
@@ -24,8 +24,8 @@ const createWindow = () => {
     }
   });
 
-  win.loadFile(path.join(__dirname, './build/index.html')) 
-
+  // win.loadFile(path.join(__dirname, './build/index.html')) 
+  win.loadURL('http://localhost:3000')
   win.on('page-title-updated', function(e) {
     e.preventDefault()
   });
