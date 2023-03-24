@@ -20,8 +20,6 @@ async function getDevices() {
 
 
 export default function HUD({zoomIn, zoomOut, rotateCCW, rotateCW, device, setDevice, deviceList, takeSnapshot}: Props) {
-    // const [deviceList, setDeviceList] = useState<MediaDeviceInfo[]>();
-    // const [device, setDevice] = useState<string>();
 
     function handleChange(e: any) {
         const index: number = e.target.value;
