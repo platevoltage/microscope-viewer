@@ -9,6 +9,7 @@ function App() {
   const [angle, setAngle] = useState(0);
   const [device, setDevice] = useState<MediaDeviceInfo>();
   const [deviceList, setDeviceList] = useState<MediaDeviceInfo[]>();
+  const [showHUD, setShowHUD] = useState<boolean>(false);
 
   function zoomIn() {
       setHeight(height+10);
@@ -44,9 +45,12 @@ function App() {
   },[deviceList]);
   
   return (
-    <div className="App" id="container">
+    <div className="App" id="container" onMouseEnter={() => setShowHUD(true)} onMouseLeave={() => setShowHUD(false)}>
       <Video height={height} width={width} angle={angle} device={device} />
-      <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList}/>
+      
+      <div style={{transition: "opacity .5s", opacity: showHUD ? 1 : 0}}>
+        <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList}/>
+      </div>
     </div>
   );
 }
