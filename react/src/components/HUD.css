@@ -2,6 +2,13 @@
     position: fixed;
     bottom: 1em;
     /* left: 10px;  */
-    
+}
 
+.HUD button, .HUD select {
+    border: 1px solid #dddddd;
+    background-color: #111111bb;
+    color: #ffffff;
+    border-radius: .1em;
+    margin: .1em;
+    padding: .3em;
 }
