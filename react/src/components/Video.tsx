@@ -48,9 +48,7 @@ export default function Video({height, width, angle, device}: Props) {
           setTimeout(() => {
 
             if (context && photo) {
-              console.log(stream.getTracks()[0].getSettings());
-              // context.fillStyle = "#0000ff";
-              // context.fillRect(0, 0, 5000, 5000);  
+              console.log(stream.getTracks()[0].getSettings()); 
               context.drawImage(video, 0, 0);
               const data = canvas.toDataURL("image/png");
               photo.setAttribute("src", data);
