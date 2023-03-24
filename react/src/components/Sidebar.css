@@ -14,7 +14,7 @@
     padding-bottom: 1em;
 }
 
-.sidebar img {
+.thumbnail-container {
   width: calc(100% - 2em);
   margin: 1em 1em 0em 1em;
 }

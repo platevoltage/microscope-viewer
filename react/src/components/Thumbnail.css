@@ -1,0 +1,8 @@
+img {
+    width: 100%;
+}
+
+.delete {
+    position: absolute;
+    background-color: #ff0000;
+}

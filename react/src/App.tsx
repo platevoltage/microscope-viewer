@@ -45,6 +45,10 @@ function App() {
     setTakeSnapshot({});
   }
 
+  function deleteSnapshot(i: number) {
+    setSnapshots(snapshots.filter((_, index) => index !== i))
+  }
+
   async function getDevices() {
     const devices = await navigator.mediaDevices.enumerateDevices();
     return devices;
@@ -77,7 +81,7 @@ function App() {
       </div>
 
       <div style={{position: "absolute", transition: "left .1s", left: `${showSidebar ? 0 : -10}em`}}>
-        <Sidebar snapshots={snapshots}/>
+        <Sidebar snapshots={snapshots} deleteSnapshot={deleteSnapshot}/>
         <SidebarIcon toggleSidebar={toggleSidebar} />
       </div>
 

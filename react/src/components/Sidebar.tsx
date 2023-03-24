@@ -4,16 +4,16 @@ import Thumbnail from './Thumbnail';
 
 interface Props {
   snapshots: string[];
+  deleteSnapshot: (i: number) => void;
 }
 
-export default function Sidebar({snapshots}: Props) {
+export default function Sidebar({snapshots, deleteSnapshot}: Props) {
   return (
     <div className="sidebar">
       {
         snapshots.map((snapshot, i) =>
-          // <img src={snapshot} alt={i.toString()} key={i}></img>
-          <div key={i}>
-            <Thumbnail snapshot={snapshot} i={i}/>
+          <div className="thumbnail-container" key={i}>
+            <Thumbnail snapshot={snapshot} i={i} deleteSnapshot={deleteSnapshot}/>
           </div>
         )
 
