@@ -16,6 +16,8 @@
 }
 #videoElement {
   /* width: 100%; */
+  transition-property: height, width;
+  transition-duration: .2s;
   overflow: scroll;
   display: flex;
   justify-content: center;
