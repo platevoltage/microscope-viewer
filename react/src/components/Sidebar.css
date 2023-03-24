@@ -9,4 +9,10 @@
     /* z-index: 100; */
     backdrop-filter: blur(30px);
     border-right: 1px solid #000000;
-  }
+    padding-top: 3em;
+}
+
+.sidebar img {
+  width: calc(100% - 2em);
+  margin: 1em;
+}
