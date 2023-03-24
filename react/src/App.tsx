@@ -3,6 +3,7 @@ import './App.css';
 import Video from "./components/Video"
 import HUD from './components/HUD';
 import Sidebar from './components/Sidebar';
+import SidebarIcon from './components/SidebarIcon';
 
 function App() {
   const [width, setWidth] = useState(100);
@@ -55,8 +56,9 @@ function App() {
       <div>
         <Video height={height} width={width} angle={angle} device={device} />
       </div>
-      <div style={{position: "absolute", transitionProperty: "opacity, left", transitionDuration: ".5s, .1s", opacity: showHUD ? 1 : 0, left: `${showSidebar ? 11 : 1}em`}}>
-        <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList} toggleSidebar={toggleSidebar} />
+      <div style={{position: "absolute", transitionProperty: "opacity, left", transitionDuration: ".5s, .1s", opacity: showHUD ? 1 : 0, left: `${showSidebar ? 11 : 1}em`, zIndex: "1"}}>
+        <SidebarIcon toggleSidebar={toggleSidebar} />
+        <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList} />
       </div>
       <div style={{position: "absolute", transition: "left .1s", left: `${showSidebar ? 0 : -10}em`}}>
         <Sidebar />
