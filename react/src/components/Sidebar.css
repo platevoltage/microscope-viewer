@@ -10,9 +10,11 @@
     backdrop-filter: blur(30px);
     border-right: 1px solid #000000;
     padding-top: 3em;
+    overflow-y: scroll;
+    padding-bottom: 1em;
 }
 
 .sidebar img {
   width: calc(100% - 2em);
-  margin: 1em;
+  margin: 1em 1em 0em 1em;
 }

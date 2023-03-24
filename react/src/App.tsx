@@ -14,6 +14,7 @@ function App() {
   const [showHUD, setShowHUD] = useState<boolean>(false);
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
   const [snapshots, setSnapshots] = useState<string[]>([]);
+  const [takeSnapshot, setTakeSnapshot] = useState({});
 
   function zoomIn() {
       setHeight(height+10);
@@ -40,6 +41,10 @@ function App() {
     setSnapshots([...snapshots, dataURL]);
   }
 
+  function snapshot() {
+    setTakeSnapshot({});
+  }
+
   async function getDevices() {
     const devices = await navigator.mediaDevices.enumerateDevices();
     return devices;
@@ -62,16 +67,20 @@ function App() {
   
   return (
     <div className="App" onMouseEnter={() => setShowHUD(true)} onMouseLeave={() => setShowHUD(false)}>
+
       <div>
-        <Video height={height} width={width} angle={angle} device={device} addImage={addImage}/>
+        <Video height={height} width={width} angle={angle} device={device} addImage={addImage} takeSnapshot={takeSnapshot}/>
       </div>
+
       <div style={{position: "absolute", transitionProperty: "opacity, left", transitionDuration: ".5s, .1s", opacity: showHUD ? 1 : 0, left: `${showSidebar ? 11 : 1}em`, zIndex: "1"}}>
-        <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList} />
+        <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList} takeSnapshot={snapshot}/>
       </div>
+
       <div style={{position: "absolute", transition: "left .1s", left: `${showSidebar ? 0 : -10}em`}}>
         <Sidebar snapshots={snapshots}/>
         <SidebarIcon toggleSidebar={toggleSidebar} />
       </div>
+
     </div>
   );
 }

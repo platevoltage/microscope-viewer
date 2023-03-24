@@ -10,6 +10,7 @@ interface Props {
     setDevice(device: MediaDeviceInfo): void;
     deviceList?: MediaDeviceInfo[];
     setDeviceList(deviceList: MediaDeviceInfo[]): void;
+    takeSnapshot: () => void;
 }
 
 async function getDevices() {
@@ -18,7 +19,7 @@ async function getDevices() {
 }
 
 
-export default function HUD({zoomIn, zoomOut, rotateCCW, rotateCW, device, setDevice, deviceList}: Props) {
+export default function HUD({zoomIn, zoomOut, rotateCCW, rotateCW, device, setDevice, deviceList, takeSnapshot}: Props) {
     // const [deviceList, setDeviceList] = useState<MediaDeviceInfo[]>();
     // const [device, setDevice] = useState<string>();
 
@@ -43,6 +44,7 @@ export default function HUD({zoomIn, zoomOut, rotateCCW, rotateCW, device, setDe
                 </option>    
             )}
             </select>
+            <button onClick={takeSnapshot}>snap</button>
         </div>
     )
 }
