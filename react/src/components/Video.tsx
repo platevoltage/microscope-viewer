@@ -3,9 +3,10 @@ import {useState, useEffect, useRef} from 'react';
 interface Props {
     height: number;
     width: number;
+    device?: MediaDeviceInfo;
 }
 
-export default function Video({height, width}: Props) {
+export default function Video({height, width, device}: Props) {
     const videoElement = useRef<HTMLVideoElement>(null);
 
   
@@ -64,14 +65,16 @@ export default function Video({height, width}: Props) {
   
   
   
-    },[]);
+    },[device]);
   
     function getVideo() {
+      console.log(device?.deviceId);
       navigator.mediaDevices
         .getUserMedia({ 
           video: {
             deviceId: {
-              exact: "8772118CA0398C5472E334DF14A5C527F57AE791",
+              // exact: "8772118CA0398C5472E334DF14A5C527F57AE791",
+              exact: device ? device.deviceId : "",
               // exact: "f6645729ac74f1e32f0c8d7bf2c193a57a08b2d70a48844e686b3a7f73d41aac"
             },
           },
@@ -89,10 +92,6 @@ export default function Video({height, width}: Props) {
     };
 
   
-    async function getDevices() {
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      console.log(devices);
-    }
   return (
     <div>
         <video autoPlay={true} id="videoElement" ref={videoElement} style={{height: `${height}vh`, width: `${width}vw`}}>
