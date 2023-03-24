@@ -55,10 +55,10 @@ function App() {
       <div>
         <Video height={height} width={width} angle={angle} device={device} />
       </div>
-      <div style={{transition: "opacity .5s", opacity: showHUD ? 1 : 0}}>
+      <div style={{position: "absolute", transitionProperty: "opacity, left", transitionDuration: ".5s, .1s", opacity: showHUD ? 1 : 0, left: `${showSidebar ? 11 : 1}em`}}>
         <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList} toggleSidebar={toggleSidebar} />
       </div>
-      <div style={{position: "absolute", left: `${showSidebar ? 0 : -20}em`}}>
+      <div style={{position: "absolute", transition: "left .1s", left: `${showSidebar ? 0 : -10}em`}}>
         <Sidebar />
       </div>
     </div>
