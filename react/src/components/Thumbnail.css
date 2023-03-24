@@ -3,6 +3,7 @@ img {
 }
 
 .delete {
+    transition: opacity 0.2s;
     position: absolute;
     background-color: #ff0000;
     border: 1px solid #ffffff;
