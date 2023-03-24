@@ -50,6 +50,7 @@ function App() {
   }
 
   async function getDevices() {
+    await navigator.mediaDevices.getUserMedia({video: true}); 
     const devices = await navigator.mediaDevices.enumerateDevices();
     return devices;
   }
@@ -57,13 +58,13 @@ function App() {
   useEffect(() => {
     (async() => {
         const devices = await getDevices();
+        console.log(devices);
         setDeviceList(devices.filter(devices => devices.kind === "videoinput"));
     })();
   },[]);
 
   useEffect(() => {
     if (deviceList) setDevice(deviceList[0]);
-    console.log(deviceList);
   },[deviceList]);
 
   useEffect(() => {
