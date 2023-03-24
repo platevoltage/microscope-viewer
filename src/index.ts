@@ -3,8 +3,8 @@ import * as path from 'path';
 
 const createWindow = () => {
   const win = new BrowserWindow({
-    width: 780,
-    height: 550,
+    // width: 780,
+    // height: 550,
     title: "Microscope",
     // fullscreen: true,
     // kiosk: true,
