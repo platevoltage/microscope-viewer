@@ -8,8 +8,10 @@ const createWindow = () => {
     title: "Microscope",
     // fullscreen: true,
     // kiosk: true,
-    // visualEffectState: "active",
-    // vibrancy: 'sidebar',
+
+
+    visualEffectState: "active",
+    vibrancy: 'sidebar',
     // resizable: false,
     // maximizable: false,
     // movable: false,

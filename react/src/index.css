@@ -5,8 +5,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-color: #282c34;
-  color: #ffffff;
+  background-color: #282c3400;
+  /* color: #000000; */
   display: flex;
 }
 
