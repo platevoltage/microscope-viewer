@@ -30,6 +30,10 @@ function App() {
     setAngle(angle - 45);
   }
 
+  function toggleSidebar() {
+    setShowSidebar(!showSidebar);
+  }
+
   async function getDevices() {
     const devices = await navigator.mediaDevices.enumerateDevices();
     return devices;
@@ -52,7 +56,7 @@ function App() {
         <Video height={height} width={width} angle={angle} device={device} />
       </div>
       <div style={{transition: "opacity .5s", opacity: showHUD ? 1 : 0}}>
-        <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList}/>
+        <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList} toggleSidebar={toggleSidebar} />
       </div>
       <div style={{position: "absolute", left: `${showSidebar ? 0 : -20}em`}}>
         <Sidebar />
