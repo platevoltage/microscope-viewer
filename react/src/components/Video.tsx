@@ -14,24 +14,24 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot}: Pro
     const videoElement = useRef<HTMLVideoElement>(null);
     const canvasElement = useRef<HTMLCanvasElement>(null);
     const [ratio, setRatio] = useState<number>(4/3);
-    
-
-  
+    // const [transitionDuration, setTransitionDuration] = useState<string>("0s");
+    let transitionDuration = ".2s";
   
     useEffect(() => {
       getVideo();  
     },[device]);
 
-
+    useEffect(() => {
+      // transitionDuration = ".2s";    
+    },[zoom, angle]);
 
     const video = videoElement.current;
     const canvas = canvasElement.current;
     const context = canvas?.getContext("2d");
-    // let streamSettings;
-    let stream: MediaStream;
+
     async function getVideo() {
       try {
-        stream = await navigator.mediaDevices.getUserMedia({ 
+        const stream = await navigator.mediaDevices.getUserMedia({ 
             video: {
               deviceId: {
                 exact: device ? device.deviceId : "",
@@ -64,6 +64,7 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot}: Pro
 
     let width = window.innerWidth + window.innerWidth*(zoom/100);
     let height = window.innerHeight + window.innerHeight*(zoom/100);
+    //makes sure video always fills window and is scrollable
     if (width < height/ratio) {
       width = height/ratio;
     }
@@ -77,7 +78,7 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot}: Pro
 
     return (
       <div style={{position: "relative", overflow: "scroll"}}>
-          <video autoPlay={true} id="videoElement" ref={videoElement} style={{ transform: `rotate(${angle}deg)`, height: heightString, width: widthString}}></video>
+          <video autoPlay={true} id="videoElement" ref={videoElement} style={{ transform: `rotate(${angle}deg)`, height: heightString, width: widthString, transitionDuration}}></video>
           <canvas id="canvas" ref={canvasElement} style={{display: "none"}}> </canvas>
       </div>
     )
