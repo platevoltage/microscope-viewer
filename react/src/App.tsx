@@ -16,6 +16,30 @@ function App() {
   const [snapshots, setSnapshots] = useState<string[]>([]);
   const [takeSnapshot, setTakeSnapshot] = useState({});
 
+  useEffect(() => {
+    console.log(snapshots);
+    // localStorage.setItem("snapshots", JSON.stringify(snapshots));
+  },[snapshots]);
+  
+  useEffect(() => {
+    const snapshots = localStorage.getItem("snapshots");
+    console.log(snapshots);
+    if (snapshots) {
+      // setSnapshots(JSON.parse(snapshots));
+    }
+    (async() => {
+        const devices = await getDevices();
+        console.log(devices);
+        setDeviceList(devices.filter(devices => devices.kind === "videoinput"));
+    })();
+  },[]);
+
+  useEffect(() => {
+    if (deviceList) setDevice(deviceList[0]);
+  },[deviceList]);
+
+
+
   function zoomIn() {
       setHeight(height+10);
       setWidth(width+10);
@@ -54,22 +78,6 @@ function App() {
     const devices = await navigator.mediaDevices.enumerateDevices();
     return devices;
   }
-
-  useEffect(() => {
-    (async() => {
-        const devices = await getDevices();
-        console.log(devices);
-        setDeviceList(devices.filter(devices => devices.kind === "videoinput"));
-    })();
-  },[]);
-
-  useEffect(() => {
-    if (deviceList) setDevice(deviceList[0]);
-  },[deviceList]);
-
-  useEffect(() => {
-    console.log(snapshots);
-  },[snapshots]);
   
   return (
     <div className="App" onMouseEnter={() => setShowHUD(true)} onMouseLeave={() => setShowHUD(false)}>
