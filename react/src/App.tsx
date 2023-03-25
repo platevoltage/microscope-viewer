@@ -83,6 +83,13 @@ function App() {
     setSnapshots(snapshots.filter((_, index) => index !== i))
   }
 
+  function saveSnapshot(i: number) {
+    const link = document.createElement("a");
+    link.download = "snapshot.png";
+    link.href = snapshots[i]; 
+    link.click();
+  }
+
   async function getDevices() {
     await navigator.mediaDevices.getUserMedia({video: true}); 
     const devices = await navigator.mediaDevices.enumerateDevices();
@@ -101,7 +108,7 @@ function App() {
       </div>
 
       <div style={{position: "absolute", transition: "left .1s", left: `${showSidebar ? 0 : -10}em`}}>
-        <Sidebar snapshots={snapshots} deleteSnapshot={deleteSnapshot}/>
+        <Sidebar snapshots={snapshots} deleteSnapshot={deleteSnapshot} saveSnapshot={saveSnapshot}/>
         <SidebarIcon toggleSidebar={toggleSidebar} />
       </div>
 
