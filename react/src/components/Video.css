@@ -1,10 +1,12 @@
 #videoElement {
-
+    background-color: "white";
     transition-property: height, width, transform;
     transition-duration: .2s;
-    overflow: scroll;
+    /* overflow: scroll; */
     display: flex;
     justify-content: center;
     object-fit: cover; 
+    width: 100vw;
+    /* height: 100vh; */
   
   }

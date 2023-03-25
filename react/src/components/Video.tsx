@@ -2,18 +2,19 @@ import {useState, useEffect, useRef} from 'react';
 import './Video.css';
 
 interface Props {
-    height: number;
-    width: number;
+
+    zoom: number;
     angle: number;
     device?: MediaDeviceInfo;
     addImage: (dataURL: string) => void;
     takeSnapshot: {};
 }
 
-export default function Video({height, width, angle, device, addImage, takeSnapshot}: Props) {
+export default function Video({zoom, angle, device, addImage, takeSnapshot}: Props) {
     const videoElement = useRef<HTMLVideoElement>(null);
     const canvasElement = useRef<HTMLCanvasElement>(null);
-    const photoElement = useRef<HTMLImageElement>(null);
+    const [ratio, setRatio] = useState<number>(4/3);
+    
 
   
   
@@ -25,8 +26,8 @@ export default function Video({height, width, angle, device, addImage, takeSnaps
 
     const video = videoElement.current;
     const canvas = canvasElement.current;
-    const photo = photoElement.current;
     const context = canvas?.getContext("2d");
+    // let streamSettings;
     let stream: MediaStream;
     async function getVideo() {
       try {
@@ -35,32 +36,16 @@ export default function Video({height, width, angle, device, addImage, takeSnaps
               deviceId: {
                 exact: device ? device.deviceId : "",
               },
-              // height: 200,
-              // width: 200
             },
         })
-        const {height, width} = stream.getTracks()[0].getSettings();
-        // const video = videoElement.current;
-        // const canvas = canvasElement.current;
-        // const photo = photoElement.current;
-
         if (video && canvas) {
+          const { height, width } = stream.getTracks()[0].getSettings();
           canvas.height = height || 100;
           canvas.width = width || 100;
+          setRatio((height||4) / (width||3));
           canvas.style.width = "1000px";
           canvas.style.height = "1000px";
           video.srcObject = stream;
-          // const context = canvas.getContext("2d");
-          // setTimeout(() => {
-
-          //   if (context) {
-          //     console.log(stream.getTracks()[0].getSettings()); 
-          //     context.drawImage(video, 0, 0);
-          //     const data = canvas.toDataURL("image/png");
-          //     addImage(data);
-          //     // photo.setAttribute("src", data);
-          //   }
-          // },2000)
         }
       }
       catch(err) {
@@ -75,11 +60,25 @@ export default function Video({height, width, angle, device, addImage, takeSnaps
         if (data) addImage(data);
       }
     },[takeSnapshot])
-  
-  return (
-    <div style={{position: "relative"}}>
-        <video autoPlay={true} id="videoElement" ref={videoElement} style={{height: `${height}vh`, width: `${width}vw`, transform: `rotate(${angle}deg)`}}></video>
-        <canvas id="canvas" ref={canvasElement} style={{display: "none"}}> </canvas>
-    </div>
-  )
+
+
+    let width = window.innerWidth + window.innerWidth*(zoom/100);
+    let height = window.innerHeight + window.innerHeight*(zoom/100);
+    if (width < height/ratio) {
+      width = height/ratio;
+    }
+    if (height < width*ratio) {
+      height = width*ratio;
+    }
+
+    const heightString = `${height}px`;
+    const widthString = `${width}px`;
+
+
+    return (
+      <div style={{position: "relative", overflow: "scroll"}}>
+          <video autoPlay={true} id="videoElement" ref={videoElement} style={{ transform: `rotate(${angle}deg)`, height: heightString, width: widthString}}></video>
+          <canvas id="canvas" ref={canvasElement} style={{display: "none"}}> </canvas>
+      </div>
+    )
 }

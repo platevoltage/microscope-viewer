@@ -6,8 +6,9 @@ import Sidebar from './components/Sidebar';
 import SidebarIcon from './components/SidebarIcon';
 
 function App() {
-  const [width, setWidth] = useState(100);
-  const [height, setHeight] = useState(100);
+  const [width, setWidth] = useState(window.innerWidth);
+  const [height, setHeight] = useState(window.innerHeight);
+  const [zoom, setZoom] = useState(0);
   const [angle, setAngle] = useState(0);
   const [device, setDevice] = useState<MediaDeviceInfo>();
   const [deviceList, setDeviceList] = useState<MediaDeviceInfo[]>();
@@ -23,30 +24,39 @@ function App() {
   
   useEffect(() => {
     const snapshots = localStorage.getItem("snapshots");
-    console.log(snapshots);
+    // console.log(snapshots);
     if (snapshots) {
       // setSnapshots(JSON.parse(snapshots));
     }
     (async() => {
         const devices = await getDevices();
-        console.log(devices);
+        // console.log(devices);
         setDeviceList(devices.filter(devices => devices.kind === "videoinput"));
     })();
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    }
   },[]);
 
   useEffect(() => {
     if (deviceList) setDevice(deviceList[0]);
   },[deviceList]);
 
-
+  function handleResize() {
+    setHeight(window.innerHeight);
+    setWidth(window.innerWidth);
+  }
 
   function zoomIn() {
-      setHeight(height+10);
-      setWidth(width+10);
+      const _zoom = zoom+10;
+      setZoom(_zoom);
   }
   function zoomOut() {
-    if (height > 100) setHeight(height-10);
-    if (width > 100) setWidth(width-10);
+    let _zoom = zoom-10;
+    if (_zoom < 0) _zoom = 0;
+    setZoom(_zoom);;
   }
 
   function rotateCCW() {
@@ -83,7 +93,7 @@ function App() {
     <div className="App" onMouseEnter={() => setShowHUD(true)} onMouseLeave={() => setShowHUD(false)}>
 
       <div>
-        <Video height={height} width={width} angle={angle} device={device} addImage={addImage} takeSnapshot={takeSnapshot}/>
+        <Video zoom={zoom} angle={angle} device={device} addImage={addImage} takeSnapshot={takeSnapshot}/>
       </div>
 
       <div style={{position: "absolute", transitionProperty: "opacity, left", transitionDuration: ".5s, .1s", opacity: showHUD ? 1 : 0, left: `${showSidebar ? 11 : 1}em`, zIndex: "1"}}>
