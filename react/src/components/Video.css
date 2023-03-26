@@ -1,4 +1,5 @@
 #videoElement {
+    position: absolute;
     background-color: "white";
     transition-property: height, width, transform; 
     /* transition-duration: .2s; */
