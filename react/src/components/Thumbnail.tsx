@@ -6,12 +6,13 @@ interface Props {
   i: number;
   deleteSnapshot: (i: number) => void;
   saveSnapshot: (i: number) => void;
+  setSnapshotToShow: (i: number) => void;
 }
 
-export default function Thumbnail({snapshot, i, deleteSnapshot, saveSnapshot}: Props) {
+export default function Thumbnail({snapshot, i, deleteSnapshot, saveSnapshot, setSnapshotToShow}: Props) {
   const [showDelete, setShowDelete] = useState(false);
   return (
-    <div style={{position: 'relative'}} onMouseEnter={() => setShowDelete(true)} onMouseLeave={() => setShowDelete(false)}>
+    <div style={{position: 'relative'}} onMouseEnter={() => setShowDelete(true)} onMouseLeave={() => setShowDelete(false)} onClick={() => setSnapshotToShow(i)}>
 
       <div className="delete" onClick={() => deleteSnapshot(i)} style={{opacity: showDelete ? 1 : 0}}>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">

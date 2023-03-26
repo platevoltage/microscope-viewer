@@ -16,6 +16,7 @@ function App() {
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
   const [snapshots, setSnapshots] = useState<string[]>([]);
   const [takeSnapshot, setTakeSnapshot] = useState({});
+  const [snapshotToShow, setSnapshotToShow] = useState(-1);
 
   useEffect(() => {
     console.log(snapshots);
@@ -111,6 +112,9 @@ function App() {
       <div>
         <Video zoom={zoom} angle={angle} device={device} addImage={addImage} takeSnapshot={takeSnapshot}/>
       </div>
+      <div style={{position: "absolute"}}>
+          { snapshotToShow > -1 && <img src={snapshots[snapshotToShow]} alt={snapshotToShow.toString()} onClick={() => setSnapshotToShow(-1)}></img>}
+      </div>
 
       <div style={{position: "absolute", transitionProperty: "opacity, left", transitionDuration: ".5s, .1s", opacity: showHUD ? 1 : 0, left: `${showSidebar ? 11 : 1}em`, zIndex: "1"}}>
         <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList} takeSnapshot={snapshot}/>
@@ -118,7 +122,7 @@ function App() {
       </div>
 
       <div style={{position: "absolute", transition: "left .1s", left: `${showSidebar ? 0 : -10}em`}}>
-        <Sidebar snapshots={snapshots} deleteSnapshot={deleteSnapshot} saveSnapshot={saveSnapshot}/>
+        <Sidebar snapshots={snapshots} deleteSnapshot={deleteSnapshot} saveSnapshot={saveSnapshot} setSnapshotToShow={setSnapshotToShow}/>
         {showSidebar && <SidebarIcon toggleSidebar={toggleSidebar} />}
       </div>
 
