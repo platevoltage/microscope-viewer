@@ -3,8 +3,8 @@ import * as path from 'path';
 
 const createWindow = () => {
   const win = new BrowserWindow({
-    // width: 780,
-    // height: 550,
+    width: 780,
+    height: 550,
     title: "Microscope",
     // fullscreen: true,
     // kiosk: true,
@@ -21,7 +21,7 @@ const createWindow = () => {
     trafficLightPosition: {x: 20, y: 20},
     // useContentSize: true,
     // frame: false,
-    // show: false,
+    show: false,
     webPreferences: {
       // nodeIntegration: false,
       // contextIsolation: true,
@@ -42,7 +42,14 @@ const createWindow = () => {
 app.whenReady().then(async () => {
 
   const win = createWindow();
-  win.webContents.executeJavaScript('console.log("test")')
+  const localStorage = await win.webContents.executeJavaScript('({...localStorage});', true);
+
+  if ("width" && "height" in localStorage ) {
+    win.setSize(+localStorage.width, +localStorage.height);
+  }
+  
+  win.show();
+  
   // note: your contextMenu, Tooltip and Title code will go here!
   const menu = Menu.buildFromTemplate([
     {

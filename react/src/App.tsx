@@ -62,6 +62,8 @@ function App() {
   function handleResize() {
     setHeight(window.innerHeight);
     setWidth(window.innerWidth);
+    localStorage.setItem("height", window.innerHeight.toString());
+    localStorage.setItem("width", window.innerWidth.toString());
   }
 
   function zoomIn() {
