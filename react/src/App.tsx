@@ -114,11 +114,12 @@ function App() {
 
       <div style={{position: "absolute", transitionProperty: "opacity, left", transitionDuration: ".5s, .1s", opacity: showHUD ? 1 : 0, left: `${showSidebar ? 11 : 1}em`, zIndex: "1"}}>
         <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList} takeSnapshot={snapshot}/>
+        {!showSidebar && <SidebarIcon toggleSidebar={toggleSidebar} />}
       </div>
 
       <div style={{position: "absolute", transition: "left .1s", left: `${showSidebar ? 0 : -10}em`}}>
         <Sidebar snapshots={snapshots} deleteSnapshot={deleteSnapshot} saveSnapshot={saveSnapshot}/>
-        <SidebarIcon toggleSidebar={toggleSidebar} />
+        {showSidebar && <SidebarIcon toggleSidebar={toggleSidebar} />}
       </div>
 
     </div>
