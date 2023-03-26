@@ -95,7 +95,10 @@ function App() {
   }
 
   function deleteSnapshot(i: number) {
-    setSnapshots(snapshots.filter((_, index) => index !== i))
+    setSnapshots(snapshots.filter((_, index) => index !== i));
+    setTimeout(() => {
+      setSnapshotToShow(-1);
+    },10);
   }
 
   function saveSnapshot(i: number) {
@@ -119,7 +122,7 @@ function App() {
       </div>
       <div className="drag"></div>
       <div style={{position: "absolute", transitionProperty: "opacity, left", transitionDuration: ".5s, .1s", opacity: showHUD ? 1 : 0, left: `${showSidebar ? 11 : 1}em`, zIndex: "1"}}>
-        <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList} takeSnapshot={snapshot}/>
+        <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList} takeSnapshot={snapshot} showSnapshot={snapshotToShow > -1}/>
         {!showSidebar && <SidebarIcon toggleSidebar={toggleSidebar} />}
       </div>
 
