@@ -87,7 +87,7 @@ function App() {
   }
 
   function addImage(dataURL: string) {
-    setSnapshots([...snapshots, dataURL]);
+    setSnapshots([dataURL, ...snapshots]);
   }
 
   function snapshot() {
