@@ -112,8 +112,8 @@ function App() {
       <div>
         <Video zoom={zoom} angle={angle} device={device} addImage={addImage} takeSnapshot={takeSnapshot}/>
       </div>
-      <div style={{position: "absolute"}}>
-          { snapshotToShow > -1 && <img src={snapshots[snapshotToShow]} alt={snapshotToShow.toString()} onClick={() => setSnapshotToShow(-1)}></img>}
+      <div style={{position: "absolute", width: "100vw"}}>
+          { snapshotToShow > -1 && <img style={{objectFit: "fill"}} src={snapshots[snapshotToShow]} alt={snapshotToShow.toString()} onClick={() => setSnapshotToShow(-1)}></img>}
       </div>
 
       <div style={{position: "absolute", transitionProperty: "opacity, left", transitionDuration: ".5s, .1s", opacity: showHUD ? 1 : 0, left: `${showSidebar ? 11 : 1}em`, zIndex: "1"}}>
