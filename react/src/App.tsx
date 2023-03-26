@@ -13,7 +13,7 @@ function App() {
   const [device, setDevice] = useState<MediaDeviceInfo>();
   const [deviceList, setDeviceList] = useState<MediaDeviceInfo[]>();
   const [showHUD, setShowHUD] = useState<boolean>(false);
-  const [showSidebar, setShowSidebar] = useState<boolean>(true);
+  const [showSidebar, setShowSidebar] = useState<boolean>();
   const [snapshots, setSnapshots] = useState<string[]>([]);
   const [takeSnapshot, setTakeSnapshot] = useState({});
   const [snapshotToShow, setSnapshotToShow] = useState(-1);
@@ -25,6 +25,12 @@ function App() {
   
   useEffect(() => {
     const savedDeviceString = localStorage.getItem("device");
+    const savedSidebarString = localStorage.getItem("showSidebar");
+    if (savedSidebarString) {
+      const savedSidebar = (+savedSidebarString)
+      console.log( savedSidebarString );
+      setShowSidebar(!!savedSidebar);
+    }
     if (savedDeviceString) {
       const savedDevice = JSON.parse( savedDeviceString );
       setDevice(savedDevice);
@@ -53,6 +59,10 @@ function App() {
   useEffect(() => {
     if (device) localStorage.setItem("device", JSON.stringify(device));
   },[device]);
+
+  useEffect(() => {
+    if (typeof showSidebar === "boolean") localStorage.setItem("showSidebar", (+showSidebar).toString());
+  },[showSidebar]);
 
   function handleResize() {
     setHeight(window.innerHeight);

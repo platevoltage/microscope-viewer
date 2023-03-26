@@ -8,6 +8,8 @@ const createWindow = () => {
     title: "Microscope",
     // fullscreen: true,
     // kiosk: true,
+    minHeight: 300,
+    minWidth: 400,
 
 
     visualEffectState: "active",
@@ -50,7 +52,7 @@ app.whenReady().then(async () => {
       ]
     }
   ]);
-  // Menu.setApplicationMenu(menu);
+  Menu.setApplicationMenu(menu);
   systemPreferences.askForMediaAccess("camera");
 })
 
