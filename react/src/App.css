@@ -4,12 +4,21 @@
   font-size: 1em;
   display: flex;
   /* flex-direction: column; */
-  -webkit-user-select: none;
-  -webkit-app-region: drag;
+  /* -webkit-user-select: none;
+  -webkit-app-region: drag; */
   /* background-color: #666666; */
   position: relative;
   margin: 0px auto;
-
+  -webkit-user-select: none;
 }
 
+img {
+  pointer-events: none
+}
 
+.drag {
+  position: absolute;
+  height: 60px;
+  width: 100%;
+  -webkit-app-region: drag;
+}

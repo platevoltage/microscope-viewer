@@ -126,6 +126,8 @@ function App() {
         {showSidebar && <SidebarIcon toggleSidebar={toggleSidebar} />}
       </div>
 
+      <div className="drag"></div>
+
     </div>
   );
 }
