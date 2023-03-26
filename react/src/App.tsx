@@ -23,11 +23,16 @@ function App() {
   },[snapshots]);
   
   useEffect(() => {
-    const snapshots = localStorage.getItem("snapshots");
-    // console.log(snapshots);
-    if (snapshots) {
-      // setSnapshots(JSON.parse(snapshots));
+    const savedDeviceString = localStorage.getItem("device");
+    if (savedDeviceString) {
+      const savedDevice = JSON.parse( savedDeviceString );
+      setDevice(savedDevice);
     }
+    // const snapshots = localStorage.getItem("snapshots");
+    // console.log(snapshots);
+    // if (snapshots) {
+      // setSnapshots(JSON.parse(snapshots));
+    // }
     (async() => {
         const devices = await getDevices();
         // console.log(devices);
@@ -41,8 +46,12 @@ function App() {
   },[]);
 
   useEffect(() => {
-    if (deviceList) setDevice(deviceList[0]);
+    if (deviceList && !device) setDevice(deviceList[0]);
   },[deviceList]);
+
+  useEffect(() => {
+    if (device) localStorage.setItem("device", JSON.stringify(device));
+  },[device]);
 
   function handleResize() {
     setHeight(window.innerHeight);
