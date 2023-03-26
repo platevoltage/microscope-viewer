@@ -1,7 +1,6 @@
 .HUD {
     position: fixed;
     bottom: 1em;
-    /* left: 10px;  */
 }
 
 .HUD button, .HUD select {

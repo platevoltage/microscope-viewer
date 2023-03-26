@@ -89,7 +89,9 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
 
           <video autoPlay={true} id="videoElement" ref={videoElement} ></video>
 
-          {snapshotToShow && <img style={{objectFit: "fill", position: "absolute"}} src={snapshotToShow} alt={""} onDragStart={(e) => e.preventDefault()}></img>}
+          { snapshotToShow && 
+            <img style={{objectFit: "fill", position: "absolute" }} src={snapshotToShow} alt={""} onDragStart={(e) => e.preventDefault()}></img>
+          }
 
           <canvas id="canvas" ref={canvasElement} style={{display: "none"}}> </canvas>
 
