@@ -76,11 +76,15 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot}: Pro
     const heightString = `${height}px`;
     const widthString = `${width}px`;
 
+    function isPortrait() {
+      return angle%180;
+    }
 
+    const transformString = `rotate(${angle}deg) scale(${isPortrait() ? 1/ratio : 1})`;
 
 
     return (
-      <div style={{transform: `rotate(${angle}deg)`, position: "relative", overflow: "scroll", height: heightString, width: widthString, transitionDuration}}>
+      <div style={{transform: transformString, position: "relative", overflow: "scroll", height: heightString, width: widthString, transitionDuration}}>
           <video autoPlay={true} id="videoElement" ref={videoElement} ></video>
           <canvas id="canvas" ref={canvasElement} style={{display: "none"}}> </canvas>
       </div>
