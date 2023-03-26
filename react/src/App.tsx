@@ -123,7 +123,7 @@ function App() {
         <Video zoom={zoom} angle={angle} device={device} addImage={addImage} takeSnapshot={takeSnapshot}/>
       </div>
       <div style={{position: "absolute", width: "100vw"}}>
-          { snapshotToShow > -1 && <img style={{objectFit: "fill"}} src={snapshots[snapshotToShow]} alt={snapshotToShow.toString()} onClick={() => setSnapshotToShow(-1)} onDragStart={(e) => {e.preventDefault()}}></img>}
+          { snapshotToShow > -1 && <img style={{objectFit: "fill"}} src={snapshots[snapshotToShow]} alt={snapshotToShow.toString()} onClick={() => setSnapshotToShow(-1)} onDragStart={(e) => e.preventDefault()}></img>}
       </div>
 
       <div className="drag"></div>
