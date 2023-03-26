@@ -124,10 +124,12 @@ function App() {
       <div onClick={() => setSnapshotToShow(-1)}>
         <Video zoom={zoom} angle={angle} device={device} addImage={addImage} takeSnapshot={takeSnapshot} snapshotToShow={snapshots[snapshotToShow]} />
       </div>
-      <div style={{position: "absolute", transitionProperty: "opacity, left", transitionDuration: ".5s, .1s", opacity: showHUD ? 1 : 0, left: `${showSidebar ? 11 : 1}em`, zIndex: "1"}}>
+
+      <div style={{position: "absolute", transitionProperty: "opacity, left", transitionDuration: ".5s, .1s", opacity: showHUD ? 1 : 0, left: `${showSidebar ? 11 : 1}em`, zIndex: "2"}}>
         <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList} takeSnapshot={snapshot} showSnapshot={snapshotToShow > -1}/>
         {!showSidebar && <SidebarIcon toggleSidebar={toggleSidebar} />}
       </div>
+
 
       <div style={{position: "absolute", transition: "left .1s", left: `${showSidebar ? 0 : -10}em`}}>
         <Sidebar snapshots={snapshots} deleteSnapshot={deleteSnapshot} saveSnapshot={saveSnapshot} setSnapshotToShow={setSnapshotToShow}/>

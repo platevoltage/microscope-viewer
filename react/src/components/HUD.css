@@ -21,7 +21,7 @@ button.snapshot, button.close-snapshot {
     width: 2em;
     height: 2em;
     display: flex;
-    justify-content: center
+    justify-content: center;
 }
 
 button.snapshot {
