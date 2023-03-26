@@ -8,9 +8,10 @@ interface Props {
     device?: MediaDeviceInfo;
     addImage: (dataURL: string) => void;
     takeSnapshot: {};
+    snapshotToShow?: string;
 }
 
-export default function Video({zoom, angle, device, addImage, takeSnapshot}: Props) {
+export default function Video({zoom, angle, device, addImage, takeSnapshot, snapshotToShow}: Props) {
     const videoElement = useRef<HTMLVideoElement>(null);
     const canvasElement = useRef<HTMLCanvasElement>(null);
     const [ratio, setRatio] = useState<number>(4/3);
@@ -85,8 +86,13 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot}: Pro
 
     return (
       <div style={{transform: transformString, position: "relative", overflow: "scroll", height: heightString, width: widthString, transitionDuration}}>
+
           <video autoPlay={true} id="videoElement" ref={videoElement} ></video>
+
+          <img style={{objectFit: "fill", position: "absolute"}} src={snapshotToShow} alt={""} onDragStart={(e) => e.preventDefault()}></img>
+
           <canvas id="canvas" ref={canvasElement} style={{display: "none"}}> </canvas>
+          
       </div>
     )
 }

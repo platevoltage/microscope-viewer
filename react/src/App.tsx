@@ -27,19 +27,14 @@ function App() {
     const savedDeviceString = localStorage.getItem("device");
     const savedSidebarString = localStorage.getItem("showSidebar");
     if (savedSidebarString) {
-      const savedSidebar = (+savedSidebarString)
-      console.log( savedSidebarString );
+      const savedSidebar = +savedSidebarString;
       setShowSidebar(!!savedSidebar);
     }
     if (savedDeviceString) {
       const savedDevice = JSON.parse( savedDeviceString );
       setDevice(savedDevice);
     }
-    // const snapshots = localStorage.getItem("snapshots");
-    // console.log(snapshots);
-    // if (snapshots) {
-      // setSnapshots(JSON.parse(snapshots));
-    // }
+
     (async() => {
         const devices = await getDevices();
         // console.log(devices);
@@ -119,13 +114,9 @@ function App() {
   return (
     <div className="App" onMouseEnter={() => setShowHUD(true)} onMouseLeave={() => setShowHUD(false)}>
 
-      <div>
-        <Video zoom={zoom} angle={angle} device={device} addImage={addImage} takeSnapshot={takeSnapshot}/>
+      <div onClick={() => setSnapshotToShow(-1)}>
+        <Video zoom={zoom} angle={angle} device={device} addImage={addImage} takeSnapshot={takeSnapshot} snapshotToShow={snapshots[snapshotToShow]} />
       </div>
-      <div style={{position: "absolute", width: "100vw"}}>
-          { snapshotToShow > -1 && <img style={{objectFit: "fill"}} src={snapshots[snapshotToShow]} alt={snapshotToShow.toString()} onClick={() => setSnapshotToShow(-1)} onDragStart={(e) => e.preventDefault()}></img>}
-      </div>
-
       <div className="drag"></div>
       <div style={{position: "absolute", transitionProperty: "opacity, left", transitionDuration: ".5s, .1s", opacity: showHUD ? 1 : 0, left: `${showSidebar ? 11 : 1}em`, zIndex: "1"}}>
         <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList} takeSnapshot={snapshot}/>
