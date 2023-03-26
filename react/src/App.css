@@ -12,9 +12,6 @@
   -webkit-user-select: none;
 }
 
-img {
-  pointer-events: none
-}
 
 .drag {
   position: absolute;

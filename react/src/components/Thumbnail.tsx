@@ -28,7 +28,7 @@ export default function Thumbnail({snapshot, i, deleteSnapshot, saveSnapshot, se
         </svg>
       </div>
 
-      <img src={snapshot} alt={i.toString()}></img>
+      <img src={snapshot} alt={i.toString()} onDragStart={(e) => {e.preventDefault()}}></img>
     </div>
   )
 }

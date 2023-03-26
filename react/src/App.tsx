@@ -113,9 +113,10 @@ function App() {
         <Video zoom={zoom} angle={angle} device={device} addImage={addImage} takeSnapshot={takeSnapshot}/>
       </div>
       <div style={{position: "absolute", width: "100vw"}}>
-          { snapshotToShow > -1 && <img style={{objectFit: "fill"}} src={snapshots[snapshotToShow]} alt={snapshotToShow.toString()} onClick={() => setSnapshotToShow(-1)}></img>}
+          { snapshotToShow > -1 && <img style={{objectFit: "fill"}} src={snapshots[snapshotToShow]} alt={snapshotToShow.toString()} onClick={() => setSnapshotToShow(-1)} onDragStart={(e) => {e.preventDefault()}}></img>}
       </div>
 
+      <div className="drag"></div>
       <div style={{position: "absolute", transitionProperty: "opacity, left", transitionDuration: ".5s, .1s", opacity: showHUD ? 1 : 0, left: `${showSidebar ? 11 : 1}em`, zIndex: "1"}}>
         <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList} takeSnapshot={snapshot}/>
         {!showSidebar && <SidebarIcon toggleSidebar={toggleSidebar} />}
@@ -126,7 +127,6 @@ function App() {
         {showSidebar && <SidebarIcon toggleSidebar={toggleSidebar} />}
       </div>
 
-      <div className="drag"></div>
 
     </div>
   );
