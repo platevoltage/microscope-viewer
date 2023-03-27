@@ -13,8 +13,6 @@ const createWindow = () => {
     // kiosk: true,
     minHeight: 300,
     minWidth: 400,
-
-
     visualEffectState: "active",
     vibrancy: 'sidebar',
     // resizable: false,
@@ -53,15 +51,22 @@ app.whenReady().then(async () => {
 
   const win = createWindow();
   const localStorage = await win.webContents.executeJavaScript('({...localStorage});', true);
+  console.log(localStorage)
 
   if ("width" && "height" in localStorage ) {
     win.setSize(+localStorage.width, +localStorage.height);
   }
+  if ("x" && "y" in localStorage ) {
+    win.setPosition(+localStorage.x, +localStorage.y);
+  }
 
   win.show();
   
-  // note: your contextMenu, Tooltip and Title code will go here!
-  
+  win.on('moved', () => {
+    const [x, y] = win.getPosition();
+    win.webContents.executeJavaScript(`localStorage.setItem("x", "${x}")`, true);
+    win.webContents.executeJavaScript(`localStorage.setItem("y", "${y}")`, true);
+  })
   const menu = Menu.buildFromTemplate(menuConfig);
   Menu.setApplicationMenu(menu);
 
