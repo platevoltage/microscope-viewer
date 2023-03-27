@@ -5,6 +5,12 @@ import HUD from './components/HUD';
 import Sidebar from './components/Sidebar';
 import SidebarIcon from './components/SidebarIcon';
 
+declare global {
+  interface Window {
+      api? : any
+  }
+}
+
 function App() {
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
@@ -24,6 +30,16 @@ function App() {
   },[snapshots]);
   
   useEffect(() => {
+    console.log(window.api);
+    window.api.login();
+    window.api?.zoomIn((event: any ) => {
+      console.log(zoom);
+      zoomIn();
+    }); 
+    window.api?.zoomOut((event: any ) => {
+      console.log(zoom);
+      zoomOut();
+    }); 
     const savedDeviceString = localStorage.getItem("device");
     const savedSidebarString = localStorage.getItem("showSidebar");
     if (savedSidebarString) {

@@ -1,6 +1,6 @@
-import { app, BrowserWindow, Menu, systemPreferences } from 'electron';
+import { app, BrowserWindow, Menu, systemPreferences, globalShortcut } from 'electron';
 import * as path from 'path';
-import { menuConfig } from './menu';
+import { getMenuConfig } from './menu';
 
 
 const createWindow = () => {
@@ -25,7 +25,7 @@ const createWindow = () => {
     webPreferences: {
       // nodeIntegration: false,
       // contextIsolation: true,
-      // preload: path.join(__dirname, 'extensionScript.js')
+      preload: path.join(__dirname, 'preload.js')
     }
   });
 
@@ -60,6 +60,9 @@ app.whenReady().then(async () => {
     win.setPosition(+localStorage.x, +localStorage.y);
   }
 
+  globalShortcut.register('CommandOrControl+numadd', () => {});
+  globalShortcut.register('CommandOrControl+numsub', () => {});
+
   win.show();
   
   win.on('moved', () => {
@@ -67,10 +70,11 @@ app.whenReady().then(async () => {
     win.webContents.executeJavaScript(`localStorage.setItem("x", "${x}")`, true);
     win.webContents.executeJavaScript(`localStorage.setItem("y", "${y}")`, true);
   })
-  const menu = Menu.buildFromTemplate(menuConfig);
+  const menu = Menu.buildFromTemplate(getMenuConfig(win));
   Menu.setApplicationMenu(menu);
 
   systemPreferences.askForMediaAccess("camera");
+
 })
 
 

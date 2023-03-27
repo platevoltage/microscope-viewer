@@ -12,14 +12,15 @@ interface Props {
 export default function Sidebar({snapshots, deleteSnapshot, saveSnapshot, setSnapshotToShow}: Props) {
   return (
     <div className="sidebar">
+      
       {
         snapshots.map((snapshot, i) =>
           <div className="thumbnail-container" key={i}>
             <Thumbnail snapshot={snapshot} i={i} deleteSnapshot={deleteSnapshot} saveSnapshot={saveSnapshot} setSnapshotToShow={setSnapshotToShow}/>
           </div>
         )
-
       }
+
     </div>
   )
 }
