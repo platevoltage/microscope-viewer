@@ -110,6 +110,10 @@ function App() {
     link.click();
   }
 
+  function closeSnapshot() {
+    setSnapshotToShow(-1);
+  }
+
   async function getDevices() {
     await navigator.mediaDevices.getUserMedia({video: true}); 
     const devices = await navigator.mediaDevices.enumerateDevices();
@@ -121,12 +125,15 @@ function App() {
       
       <div className="drag"></div>
 
-      <div onClick={() => setSnapshotToShow(-1)}>
+
+      <div>
         <Video zoom={zoom} angle={angle} device={device} addImage={addImage} takeSnapshot={takeSnapshot} snapshotToShow={snapshots[snapshotToShow]} />
       </div>
 
+      {snapshotToShow > -1 && <div style={{width: "100vw", height: "100vh", position: "fixed", top: 0, border: "10px solid black", pointerEvents: "none"}}></div>}
+
       <div style={{position: "absolute", transitionProperty: "opacity, left", transitionDuration: ".5s, .1s", opacity: showHUD ? 1 : 0, left: `${showSidebar ? 11 : 1}em`, zIndex: "2"}}>
-        <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList} takeSnapshot={snapshot} showSnapshot={snapshotToShow > -1}/>
+        <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList} takeSnapshot={snapshot} closeSnapshot={closeSnapshot} showSnapshot={snapshotToShow > -1}/>
         {!showSidebar && <SidebarIcon toggleSidebar={toggleSidebar} />}
       </div>
 

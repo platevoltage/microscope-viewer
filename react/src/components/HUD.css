@@ -44,5 +44,5 @@ button.snapshot {
 
 button.close-snapshot {
     background-color: #ff0000;
-    pointer-events: none;
+    /* pointer-events: none; */
 }
