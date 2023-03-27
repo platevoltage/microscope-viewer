@@ -2,7 +2,6 @@ import { app, BrowserWindow, Menu, systemPreferences } from 'electron';
 import * as path from 'path';
 import { menuConfig } from './menu';
 
-const isMac = process.platform === 'darwin';
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -31,12 +30,13 @@ const createWindow = () => {
   });
 
   // win.loadFile(path.join(__dirname, './build/index.html')) 
-  win.loadURL('http://localhost:3000')
+  win.loadURL('http://localhost:3000');
+
   win.on('page-title-updated', function(e) {
     e.preventDefault()
   });
-  return win
-      
+
+  return win;    
 };
 
 app.setAboutPanelOptions({
@@ -51,7 +51,7 @@ app.whenReady().then(async () => {
 
   const win = createWindow();
   const localStorage = await win.webContents.executeJavaScript('({...localStorage});', true);
-  console.log(localStorage)
+  // console.log(localStorage)
 
   if ("width" && "height" in localStorage ) {
     win.setSize(+localStorage.width, +localStorage.height);
