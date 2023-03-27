@@ -1,4 +1,17 @@
 .HUD {
+
+}
+
+.border {
+    border: 10px solid black;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    pointer-events: none;
+}
+
+.bottomHUD {
     position: fixed;
     bottom: 1em;
 }
