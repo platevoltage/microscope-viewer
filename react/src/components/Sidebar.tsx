@@ -6,17 +6,18 @@ interface Props {
   snapshots: string[];
   deleteSnapshot: (i: number) => void;
   saveSnapshot: (i: number) => void;
+  snapshotToShow: number;
   setSnapshotToShow: (i: number) => void;
 }
 
-export default function Sidebar({snapshots, deleteSnapshot, saveSnapshot, setSnapshotToShow}: Props) {
+export default function Sidebar({snapshots, deleteSnapshot, saveSnapshot, snapshotToShow, setSnapshotToShow}: Props) {
   return (
     <div className="sidebar">
       
       {
         snapshots.map((snapshot, i) =>
           <div className="thumbnail-container" key={i}>
-            <Thumbnail snapshot={snapshot} i={i} deleteSnapshot={deleteSnapshot} saveSnapshot={saveSnapshot} setSnapshotToShow={setSnapshotToShow}/>
+            <Thumbnail snapshot={snapshot} i={i} deleteSnapshot={deleteSnapshot} saveSnapshot={saveSnapshot} snapshotToShow={snapshotToShow} setSnapshotToShow={setSnapshotToShow}/>
           </div>
         )
       }

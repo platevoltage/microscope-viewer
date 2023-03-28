@@ -6,10 +6,11 @@ interface Props {
   i: number;
   deleteSnapshot: (i: number) => void;
   saveSnapshot: (i: number) => void;
+  snapshotToShow: number;
   setSnapshotToShow: (i: number) => void;
 }
 
-export default function Thumbnail({snapshot, i, deleteSnapshot, saveSnapshot, setSnapshotToShow}: Props) {
+export default function Thumbnail({snapshot, i, deleteSnapshot, saveSnapshot, snapshotToShow, setSnapshotToShow}: Props) {
   const [showDelete, setShowDelete] = useState(false);
   return (
     <div style={{position: 'relative'}} onMouseEnter={() => setShowDelete(true)} onMouseLeave={() => setShowDelete(false)} onClick={() => setSnapshotToShow(i)}>
@@ -28,6 +29,7 @@ export default function Thumbnail({snapshot, i, deleteSnapshot, saveSnapshot, se
         </svg>
       </div>
 
+      {snapshotToShow===i && <div style={{position: "absolute", height: "100%", width: "100%", backgroundColor: "#777777dd", borderRadius: ".3em"}}></div>}
       <img src={snapshot} alt={i.toString()} onDragStart={(e) => {e.preventDefault()}}></img>
     </div>
   )

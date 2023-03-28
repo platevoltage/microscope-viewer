@@ -192,7 +192,7 @@ function App() {
 
 
       <div style={{position: "absolute", transition: "left .1s", left: `${showSidebar ? 0 : -10}em`}}>
-        <Sidebar snapshots={snapshots} deleteSnapshot={deleteSnapshot} saveSnapshot={saveSnapshot} setSnapshotToShow={setSnapshotToShow}/>
+        <Sidebar snapshots={snapshots} deleteSnapshot={deleteSnapshot} saveSnapshot={saveSnapshot} snapshotToShow={snapshotToShow} setSnapshotToShow={setSnapshotToShow}/>
         {showSidebar && <SidebarIcon toggleSidebar={toggleSidebar} />}
       </div>
 
