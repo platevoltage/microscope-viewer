@@ -58,6 +58,8 @@ app.whenReady().then(async () => {
   globalShortcut.register('CommandOrControl+numadd', () => {});
   globalShortcut.register('CommandOrControl+numsub', () => {});
   globalShortcut.register('CommandOrControl+0', () => {});
+  globalShortcut.register('CommandOrControl+L', () => {});
+  globalShortcut.register('CommandOrControl+R', () => {});
   globalShortcut.register('Shift+CommandOrControl+L', () => {});
 
   //saves window position when moved

@@ -25,6 +25,18 @@ contextBridge.exposeInMainWorld("api", {
             ipcRenderer.removeListener('zoom-out',data);
         }
     },
+    rotateLeft: (data:any) => {
+        ipcRenderer.on('rotate-left',data);
+        return () => {
+            ipcRenderer.removeListener('rotate-left',data);
+        }
+    },
+    rotateRight: (data:any) => {
+        ipcRenderer.on('rotate-right',data);
+        return () => {
+            ipcRenderer.removeListener('rotate-right',data);
+        }
+    },
     setDevice: (data:any) => {
         ipcRenderer.on('set-device',data);
         return () => {

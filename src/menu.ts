@@ -83,6 +83,16 @@ export function getMenuConfig(win: BrowserWindow, deviceMenu: any[]): any {
           click: () => win.webContents.send('zoom-out'),
           accelerator: 'CommandOrControl+numsub',
         },
+        { 
+          label: 'Rotate Left', 
+          click: () => win.webContents.send('rotate-left'),
+          accelerator: 'CommandOrControl+L',
+        },
+        { 
+          label: 'Rotate Right', 
+          click: () => win.webContents.send('rotate-right'),
+          accelerator: 'CommandOrControl+R',
+        },
         { type: 'separator' },
         {
           label: 'Camera Select',

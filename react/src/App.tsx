@@ -39,6 +39,12 @@ function App() {
     const removeEventListenerZoomOut = window.api?.zoomOut(() => {
       zoomOut();
     }); 
+    const removeEventListenerRotateLeft = window.api?.rotateLeft(() => {
+      rotateCCW();
+    }); 
+    const removeEventListenerRotateRight = window.api?.rotateRight(() => {
+      rotateCW();
+    }); 
 
     return () => {
       if (window.api) {
@@ -47,7 +53,7 @@ function App() {
         removeEventListenerZoomOut();
       }
     }
-  },[zoom])
+  },[zoom, angle])
   
 
 
@@ -130,11 +136,11 @@ function App() {
   }
 
   function rotateCCW() {
-    setAngle(angle + 45);
+    setAngle(angle - 45);
   }
 
   function rotateCW() {
-    setAngle(angle - 45);
+    setAngle(angle + 45);
   }
 
   function toggleSidebar() {
