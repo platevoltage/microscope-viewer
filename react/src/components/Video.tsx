@@ -101,7 +101,7 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
               <img style={{objectFit: "fill", position: "absolute"}} src={snapshotToShow} alt={""} onDragStart={(e) => e.preventDefault()}></img>
           }
 
-          <div style={{objectFit: "fill", position: "absolute", backgroundColor: "white", width: "100vw", height: "100vh", opacity: flashOpacity, transition: flashTransition}}></div>
+          <div style={{objectFit: "fill", position: "absolute", backgroundColor: "white", width: "100%", height: "100%", opacity: flashOpacity, transition: flashTransition}}></div>
           <canvas id="canvas" ref={canvasElement} style={{display: "none"}}> </canvas>
 
       </div>

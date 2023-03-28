@@ -17,6 +17,7 @@
 }
 
 .HUD button, .HUD select {
+    transition: background-color .1s;
     border: none;
     background-color: #111111dd;
     /* color: #ffffff; */

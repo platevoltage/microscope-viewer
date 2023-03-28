@@ -15,7 +15,7 @@
 
 .drag {
   position: absolute;
-  height: 100px;
+  height: 60px;
   width: calc(100% - 60px);
   -webkit-app-region: drag;
   z-index: 1;
