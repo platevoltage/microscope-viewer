@@ -41,9 +41,11 @@ function App() {
     }); 
 
     return () => {
-      removeEventListenerZoomReset();
-      removeEventListenerZoomIn();
-      removeEventListenerZoomOut();
+      if (window.api) {
+        removeEventListenerZoomReset();
+        removeEventListenerZoomIn();
+        removeEventListenerZoomOut();
+      }
     }
   },[zoom])
   
@@ -88,7 +90,7 @@ function App() {
       toggleSidebar();
     }); 
     return () => {
-      removeEventListenerToggleSidebar();
+      if (window.api) removeEventListenerToggleSidebar();
     }
   },[showSidebar]);
 
