@@ -28,18 +28,27 @@ function App() {
     console.log(snapshots);
     // localStorage.setItem("snapshots", JSON.stringify(snapshots));
   },[snapshots]);
-  
+
   useEffect(() => {
-    console.log(window.api);
-    window.api.login();
-    window.api?.zoomIn((event: any ) => {
+    const removeEventListenerZoomIn = window.api?.zoomIn(() => {
       console.log(zoom);
       zoomIn();
     }); 
-    window.api?.zoomOut((event: any ) => {
+    const removeEventListenerZoomOut = window.api?.zoomOut(() => {
       console.log(zoom);
       zoomOut();
     }); 
+
+    return () => {
+      removeEventListenerZoomIn();
+      removeEventListenerZoomOut();
+    }
+  },[zoom])
+  
+
+
+  useEffect(() => {
+
     const savedDeviceString = localStorage.getItem("device");
     const savedSidebarString = localStorage.getItem("showSidebar");
     if (savedSidebarString) {

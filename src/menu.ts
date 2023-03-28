@@ -1,6 +1,9 @@
 import { app } from 'electron';
 const isMac = process.platform === 'darwin';
 
+
+
+
 export function getMenuConfig(win: any): any {
   return [
     // { role: 'appMenu' }
@@ -60,17 +63,17 @@ export function getMenuConfig(win: any): any {
       submenu: [
         // { role: 'reload' },
         // { role: 'forceReload' },
-        // { role: 'toggleDevTools' },
+        { role: 'toggleDevTools' },
         { type: 'separator' },
         { role: 'resetZoom' },
         { 
           label: 'Zoom In' , 
-          click: () => win.webContents.send('zoom-in'),
+          click: () => win.webContents.send('zoom-in', 10),
           accelerator: 'CommandOrControl+numadd',
         },
         { 
           label: 'Zoom Out', 
-          click: () => win.webContents.send('zoom-out'),
+          click: () => win.webContents.send('zoom-out', 10),
           accelerator: 'CommandOrControl+numsub',
         },
         { type: 'separator' },

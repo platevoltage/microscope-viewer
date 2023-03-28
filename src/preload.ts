@@ -1,11 +1,24 @@
 import { contextBridge, ipcRenderer } from 'electron';
+// import { setZoom } from './menu';
+
+
 
 
 contextBridge.exposeInMainWorld("api", {
-    login: () => ipcRenderer.send('log-in-button-clicked'),
-    zoomIn: (data:any) => ipcRenderer.on('zoom-in',data),
-    zoomOut: (data:any) => ipcRenderer.on('zoom-out',data),
+    zoomIn: (data:any) => {
+        ipcRenderer.on('zoom-in',data);
+        return () => {
+            ipcRenderer.removeListener('zoom-in',data);
+        }
+    },
+    zoomOut: (data:any) => {
+        ipcRenderer.on('zoom-out',data);
+        return () => {
+            ipcRenderer.removeListener('zoom-out',data);
+        }
+    }
 });
+
 
 // contextBridge.exposeInMainWorld("api2", {
 //     readData: (device: string, force?: boolean) => ipcRenderer.invoke('readData', device, force),
