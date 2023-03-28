@@ -17,6 +17,8 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
     const [ratio, setRatio] = useState<number>(4/3);
     // const [transitionDuration, setTransitionDuration] = useState<string>("0s");
     let transitionDuration = ".2s";
+    const [flashOpacity, setFlashOpacity] = useState<number>(0);
+    const [flashTransition, setFlashTransition] = useState<string>("opacity 0s");
   
     useEffect(() => {
       getVideo();  
@@ -25,6 +27,7 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
     useEffect(() => {
       // transitionDuration = ".2s";    
     },[zoom, angle]);
+
 
     const video = videoElement.current;
     const canvas = canvasElement.current;
@@ -56,6 +59,12 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
     
     useEffect(() => {
       if (context) {
+        setFlashTransition("opacity 0s");
+        setFlashOpacity(.5);
+        setTimeout(() => {
+          setFlashTransition("opacity .5s");
+          setFlashOpacity(0);
+        },50);
         context.drawImage(video as CanvasImageSource, 0, 0);
         const data = canvas?.toDataURL("image/png");
         if (data) addImage(data);
@@ -86,13 +95,13 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
 
     return (
       <div style={{transform: transformString, position: "relative", overflow: "scroll", height: heightString, width: widthString, transitionDuration}}>
-
           <video autoPlay={true} id="videoElement" ref={videoElement} ></video>
 
           { snapshotToShow && 
-            <img style={{objectFit: "fill", position: "absolute"}} src={snapshotToShow} alt={""} onDragStart={(e) => e.preventDefault()}></img>
+              <img style={{objectFit: "fill", position: "absolute"}} src={snapshotToShow} alt={""} onDragStart={(e) => e.preventDefault()}></img>
           }
 
+          <div style={{objectFit: "fill", position: "absolute", backgroundColor: "white", width: "100vw", height: "100vh", opacity: flashOpacity, transition: flashTransition}}></div>
           <canvas id="canvas" ref={canvasElement} style={{display: "none"}}> </canvas>
 
       </div>

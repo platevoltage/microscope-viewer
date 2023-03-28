@@ -46,3 +46,11 @@ button.close-snapshot {
     background-color: #ff0000;
     /* pointer-events: none; */
 }
+
+button.snapshot:hover, button.close-snapshot:hover {
+    background-color: #d58215;
+}
+
+button.snapshot:active, button.close-snapshot:active {
+    background-color: #83827f;
+}
