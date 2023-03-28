@@ -93,7 +93,7 @@ function App() {
         setDevice(deviceList[id]);
       }); 
       return () => {
-        removeEventListenerSetDevice();
+        if (window.api) removeEventListenerSetDevice();
       }
     }
   },[deviceList, device]);

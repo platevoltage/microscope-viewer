@@ -76,6 +76,7 @@ app.whenReady().then(async () => {
   //waits for device list
   ipcMain.once('receive-devices', (_, devices) => {
 
+    //adds device list to menu
     const deviceMenu = [];
     devices.map((device: any, i: number) => {
       deviceMenu.push({
@@ -90,7 +91,7 @@ app.whenReady().then(async () => {
     const menu = Menu.buildFromTemplate(getMenuConfig(win, deviceMenu));
     Menu.setApplicationMenu(menu);
 
-    //syncs device menu
+    //syncs device menu when device is changed
     ipcMain.on('receive-devices', (_, devices) => {
       const deviceList = menu.getMenuItemById('camera-select').submenu.items;
       devices.map((device: any, i: number) => {
