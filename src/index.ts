@@ -48,6 +48,7 @@ app.setAboutPanelOptions({
 });
 
 app.whenReady().then(async () => {
+  systemPreferences.askForMediaAccess("camera");
   const win = createWindow();
   //get persistent data from localStorage
   const localStorage = await win.webContents.executeJavaScript('({...localStorage});', true);
@@ -73,11 +74,13 @@ app.whenReady().then(async () => {
   
   //waits for device list
   ipcMain.once('receive-devices', (_, devices) => {
-    console.log(devices);
+
     const deviceMenu = [];
-    devices.map((device: string, i: number) => {
+    devices.map((device: any, i: number) => {
       deviceMenu.push({
-        label: device,
+        label: device.label,
+        type: "radio",
+        checked: device.selected,
         id: i,
         click: () => win.webContents.send('set-device', i),
       });
@@ -86,10 +89,17 @@ app.whenReady().then(async () => {
     const menu = Menu.buildFromTemplate(getMenuConfig(win, deviceMenu));
     Menu.setApplicationMenu(menu);
 
+    //syncs device menu
+    ipcMain.on('receive-devices', (_, devices) => {
+      const deviceList = menu.getMenuItemById('camera-select').submenu.items;
+      devices.map((device: any, i: number) => {
+        if (device.selected) deviceList[i].checked = true;
+      });
+    });
+
   });
 
   win.show();
-  systemPreferences.askForMediaAccess("camera");
 
 })
 

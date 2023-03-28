@@ -86,6 +86,7 @@ export function getMenuConfig(win: BrowserWindow, deviceMenu: any[]): any {
         { type: 'separator' },
         {
           label: 'Camera Select',
+          id: 'camera-select',
           submenu: [
             ...deviceMenu
           ]

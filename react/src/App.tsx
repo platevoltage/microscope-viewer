@@ -83,18 +83,20 @@ function App() {
     if (deviceList) {
       const _deviceList = [];
       for (let _device of deviceList) {
-        _deviceList.push(_device.label);
+        _deviceList.push({
+          label: _device.label,
+          selected: _device.deviceId === device?.deviceId
+        });
       }
       window.api?.sendDevicesToMain(_deviceList);
       const removeEventListenerSetDevice = window.api?.setDevice((_:never, id: number) => {
         setDevice(deviceList[id]);
-        // console.log(data);
       }); 
       return () => {
         removeEventListenerSetDevice();
       }
     }
-  },[deviceList]);
+  },[deviceList, device]);
 
   useEffect(() => {
     if (device) localStorage.setItem("device", JSON.stringify(device));

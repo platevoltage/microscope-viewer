@@ -31,7 +31,7 @@ contextBridge.exposeInMainWorld("api", {
             ipcRenderer.removeListener('set-device',data);
         }
     },
-    sendDevicesToMain: (devices: string[]) => ipcRenderer.send('receive-devices', devices)
+    sendDevicesToMain: (devices: any[]) => ipcRenderer.send('receive-devices', devices)
     // sendDevicesToMain: (data: any) => console.log(data)
 
 });
