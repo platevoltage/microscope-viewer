@@ -19,6 +19,7 @@ img {
     width: 1.8em;
     height: 1.8em;
     text-align: center;
+    z-index: 10;
 }
 
 .delete:hover {

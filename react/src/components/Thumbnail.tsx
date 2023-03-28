@@ -29,7 +29,7 @@ export default function Thumbnail({snapshot, i, deleteSnapshot, saveSnapshot, sn
         </svg>
       </div>
 
-      {snapshotToShow===i && <div style={{position: "absolute", height: "100%", width: "100%", backgroundColor: "#777777dd", borderRadius: ".3em"}}></div>}
+      {snapshotToShow===i && <div style={{position: "absolute", height: "100%", width: "100%", backgroundColor: "#444444dd", borderRadius: ".3em"}}></div>}
       <img src={snapshot} alt={i.toString()} onDragStart={(e) => {e.preventDefault()}}></img>
     </div>
   )
