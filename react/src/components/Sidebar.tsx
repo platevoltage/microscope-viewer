@@ -12,7 +12,7 @@ interface Props {
 
 export default function Sidebar({snapshots, deleteSnapshot, saveSnapshot, snapshotToShow, setSnapshotToShow}: Props) {
   return (
-    <div className="sidebar">
+    <div className="sidebar" onClick={() => {setSnapshotToShow(-1); console.log("close")}}>
       
       {
         snapshots.map((snapshot, i) =>
