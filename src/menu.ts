@@ -2,7 +2,7 @@ import { app } from 'electron';
 const isMac = process.platform === 'darwin';
 
 
-export function getMenuConfig(win: any): any {
+export function getMenuConfig(win: any, deviceMenu: any[]): any {
   return [
     // { role: 'appMenu' }
     ...(isMac ? [{
@@ -84,6 +84,12 @@ export function getMenuConfig(win: any): any {
           accelerator: 'CommandOrControl+numsub',
         },
         { type: 'separator' },
+        {
+          label: 'Camera Select',
+          submenu: [
+            ...deviceMenu
+          ]
+        }
 
         // { role: 'togglefullscreen' }
       ]
@@ -109,12 +115,13 @@ export function getMenuConfig(win: any): any {
       submenu: [
         {
           label: 'Learn More',
+          id: 'test',
           click: async () => {
             const { shell } = require('electron')
             await shell.openExternal('https://electronjs.org')
           }
-        }
+        },
       ]
-    }
+    },
   ]
 }
