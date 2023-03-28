@@ -8,23 +8,17 @@ const createWindow = () => {
     width: 780,
     height: 550,
     title: "Microscope",
-    // fullscreen: true,
-    // kiosk: true,
     minHeight: 300,
     minWidth: 400,
     visualEffectState: "active",
     vibrancy: 'sidebar',
-    // resizable: false,
-    // maximizable: false,
-    // movable: false,
     titleBarStyle: "hidden",
     trafficLightPosition: {x: 20, y: 20},
-    // useContentSize: true,
     // frame: false,
     show: false,
     webPreferences: {
-      // nodeIntegration: false,
-      // contextIsolation: true,
+      nodeIntegration: false,
+      contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
     }
   });
