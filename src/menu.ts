@@ -1,8 +1,8 @@
-import { app } from 'electron';
+import { app, BrowserWindow, Menu, MenuItem, MenuItemConstructorOptions } from 'electron';
 const isMac = process.platform === 'darwin';
 
 
-export function getMenuConfig(win: any, deviceMenu: any[]): any {
+export function getMenuConfig(win: BrowserWindow, deviceMenu: any[]): any {
   return [
     // { role: 'appMenu' }
     ...(isMac ? [{

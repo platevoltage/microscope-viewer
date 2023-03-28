@@ -35,7 +35,7 @@ export default function HUD({zoomIn, zoomOut, rotateCCW, rotateCW, device, setDe
     
     useEffect(() => {
         setDeviceMenuSelection( getIndexOfDevice() );
-    },[deviceList])
+    },[deviceList, device])
 
 
     return (

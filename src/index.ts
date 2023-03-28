@@ -48,11 +48,9 @@ app.setAboutPanelOptions({
 });
 
 app.whenReady().then(async () => {
-
   const win = createWindow();
+  //get persistent data from localStorage
   const localStorage = await win.webContents.executeJavaScript('({...localStorage});', true);
-  // console.log(localStorage)
-
   if ("width" && "height" in localStorage ) {
     win.setSize(+localStorage.width, +localStorage.height);
   }
@@ -60,25 +58,28 @@ app.whenReady().then(async () => {
     win.setPosition(+localStorage.x, +localStorage.y);
   }
 
+  //register keyboard shortcuts
   globalShortcut.register('CommandOrControl+numadd', () => {});
   globalShortcut.register('CommandOrControl+numsub', () => {});
   globalShortcut.register('CommandOrControl+0', () => {});
   globalShortcut.register('Shift+CommandOrControl+L', () => {});
 
-  win.show();
-
+  //saves window position when moved
   win.on('moved', () => {
     const [x, y] = win.getPosition();
     win.webContents.executeJavaScript(`localStorage.setItem("x", "${x}")`, true);
     win.webContents.executeJavaScript(`localStorage.setItem("y", "${y}")`, true);
   })
   
-  ipcMain.on('receive-devices', (_, devices) => {
+  //waits for device list
+  ipcMain.once('receive-devices', (_, devices) => {
     console.log(devices);
     const deviceMenu = [];
-    devices.map((device: string) => {
+    devices.map((device: string, i: number) => {
       deviceMenu.push({
-        label: device
+        label: device,
+        id: i,
+        click: () => win.webContents.send('set-device', i),
       });
     });
     
@@ -87,6 +88,7 @@ app.whenReady().then(async () => {
 
   });
 
+  win.show();
   systemPreferences.askForMediaAccess("camera");
 
 })

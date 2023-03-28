@@ -81,11 +81,18 @@ function App() {
       setDevice(deviceList[0]);
     }
     if (deviceList) {
-      const _devicelist = [];
+      const _deviceList = [];
       for (let _device of deviceList) {
-        _devicelist.push(_device.label);
+        _deviceList.push(_device.label);
       }
-      window.api?.sendDevicesToMain(_devicelist);
+      window.api?.sendDevicesToMain(_deviceList);
+      const removeEventListenerSetDevice = window.api?.setDevice((_:never, id: number) => {
+        setDevice(deviceList[id]);
+        // console.log(data);
+      }); 
+      return () => {
+        removeEventListenerSetDevice();
+      }
     }
   },[deviceList]);
 

@@ -25,6 +25,12 @@ contextBridge.exposeInMainWorld("api", {
             ipcRenderer.removeListener('zoom-out',data);
         }
     },
+    setDevice: (data:any) => {
+        ipcRenderer.on('set-device',data);
+        return () => {
+            ipcRenderer.removeListener('set-device',data);
+        }
+    },
     sendDevicesToMain: (devices: string[]) => ipcRenderer.send('receive-devices', devices)
     // sendDevicesToMain: (data: any) => console.log(data)
 
