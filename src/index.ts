@@ -66,16 +66,26 @@ app.whenReady().then(async () => {
   globalShortcut.register('Shift+CommandOrControl+L', () => {});
 
   win.show();
-  ipcMain.on('receive-devices', (_e, devices) => {
-    console.log(devices);
-  });
+
   win.on('moved', () => {
     const [x, y] = win.getPosition();
     win.webContents.executeJavaScript(`localStorage.setItem("x", "${x}")`, true);
     win.webContents.executeJavaScript(`localStorage.setItem("y", "${y}")`, true);
   })
-  const menu = Menu.buildFromTemplate(getMenuConfig(win));
-  Menu.setApplicationMenu(menu);
+  
+  ipcMain.on('receive-devices', (_, devices) => {
+    console.log(devices);
+    const deviceMenu = [];
+    devices.map((device: string) => {
+      deviceMenu.push({
+        label: device
+      });
+    });
+    
+    const menu = Menu.buildFromTemplate(getMenuConfig(win, deviceMenu));
+    Menu.setApplicationMenu(menu);
+
+  });
 
   systemPreferences.askForMediaAccess("camera");
 
