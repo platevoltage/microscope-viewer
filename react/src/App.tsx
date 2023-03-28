@@ -77,7 +77,16 @@ function App() {
   },[]);
 
   useEffect(() => {
-    if (deviceList && !device) setDevice(deviceList[0]);
+    if (deviceList && !device) {
+      setDevice(deviceList[0]);
+    }
+    if (deviceList) {
+      const _devicelist = [];
+      for (let _device of deviceList) {
+        _devicelist.push(_device.label);
+      }
+      window.api?.sendDevicesToMain(_devicelist);
+    }
   },[deviceList]);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, systemPreferences, globalShortcut } from 'electron';
+import { app, BrowserWindow, Menu, systemPreferences, globalShortcut, ipcMain } from 'electron';
 import * as path from 'path';
 import { getMenuConfig } from './menu';
 
@@ -66,7 +66,9 @@ app.whenReady().then(async () => {
   globalShortcut.register('Shift+CommandOrControl+L', () => {});
 
   win.show();
-  
+  ipcMain.on('receive-devices', (_e, devices) => {
+    console.log(devices);
+  });
   win.on('moved', () => {
     const [x, y] = win.getPosition();
     win.webContents.executeJavaScript(`localStorage.setItem("x", "${x}")`, true);

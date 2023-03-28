@@ -61,7 +61,7 @@ export function getMenuConfig(win: any): any {
       submenu: [
         // { role: 'reload' },
         // { role: 'forceReload' },
-        // { role: 'toggleDevTools' },
+        { role: 'toggleDevTools' },
         { 
           label: 'Toggle Sidebar' , 
           click: () => win.webContents.send('toggle-sidebar'),
