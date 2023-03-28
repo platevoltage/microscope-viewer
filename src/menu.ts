@@ -2,8 +2,6 @@ import { app } from 'electron';
 const isMac = process.platform === 'darwin';
 
 
-
-
 export function getMenuConfig(win: any): any {
   return [
     // { role: 'appMenu' }
@@ -63,21 +61,31 @@ export function getMenuConfig(win: any): any {
       submenu: [
         // { role: 'reload' },
         // { role: 'forceReload' },
-        { role: 'toggleDevTools' },
+        // { role: 'toggleDevTools' },
+        { 
+          label: 'Toggle Sidebar' , 
+          click: () => win.webContents.send('toggle-sidebar'),
+          accelerator: 'Shift+CommandOrControl+L',
+        },
         { type: 'separator' },
-        { role: 'resetZoom' },
+        { 
+          label: 'Actual Size' , 
+          click: () => win.webContents.send('zoom-reset'),
+          accelerator: 'CommandOrControl+0',
+        },
         { 
           label: 'Zoom In' , 
-          click: () => win.webContents.send('zoom-in', 10),
+          click: () => win.webContents.send('zoom-in'),
           accelerator: 'CommandOrControl+numadd',
         },
         { 
           label: 'Zoom Out', 
-          click: () => win.webContents.send('zoom-out', 10),
+          click: () => win.webContents.send('zoom-out'),
           accelerator: 'CommandOrControl+numsub',
         },
         { type: 'separator' },
-        { role: 'togglefullscreen' }
+
+        // { role: 'togglefullscreen' }
       ]
     },
     // { role: 'windowMenu' }

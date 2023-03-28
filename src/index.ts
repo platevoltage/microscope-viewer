@@ -62,6 +62,8 @@ app.whenReady().then(async () => {
 
   globalShortcut.register('CommandOrControl+numadd', () => {});
   globalShortcut.register('CommandOrControl+numsub', () => {});
+  globalShortcut.register('CommandOrControl+0', () => {});
+  globalShortcut.register('Shift+CommandOrControl+L', () => {});
 
   win.show();
   

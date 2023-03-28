@@ -30,16 +30,18 @@ function App() {
   },[snapshots]);
 
   useEffect(() => {
+    const removeEventListenerZoomReset = window.api?.zoomReset(() => {
+      setZoom(0);
+    }); 
     const removeEventListenerZoomIn = window.api?.zoomIn(() => {
-      console.log(zoom);
       zoomIn();
     }); 
     const removeEventListenerZoomOut = window.api?.zoomOut(() => {
-      console.log(zoom);
       zoomOut();
     }); 
 
     return () => {
+      removeEventListenerZoomReset();
       removeEventListenerZoomIn();
       removeEventListenerZoomOut();
     }
@@ -82,6 +84,12 @@ function App() {
 
   useEffect(() => {
     if (typeof showSidebar === "boolean") localStorage.setItem("showSidebar", (+showSidebar).toString());
+    const removeEventListenerToggleSidebar = window.api?.toggleSidebar(() => {
+      toggleSidebar();
+    }); 
+    return () => {
+      removeEventListenerToggleSidebar();
+    }
   },[showSidebar]);
 
   function handleResize() {

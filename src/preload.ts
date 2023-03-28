@@ -1,10 +1,18 @@
 import { contextBridge, ipcRenderer } from 'electron';
-// import { setZoom } from './menu';
-
-
-
 
 contextBridge.exposeInMainWorld("api", {
+    toggleSidebar: (data:any) => {
+        ipcRenderer.on('toggle-sidebar',data);
+        return () => {
+            ipcRenderer.removeListener('toggle-sidebar',data);
+        }
+    },
+    zoomReset: (data:any) => {
+        ipcRenderer.on('zoom-reset',data);
+        return () => {
+            ipcRenderer.removeListener('zoom-reset',data);
+        }
+    },
     zoomIn: (data:any) => {
         ipcRenderer.on('zoom-in',data);
         return () => {
