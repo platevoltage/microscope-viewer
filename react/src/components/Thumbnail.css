@@ -1,5 +1,6 @@
 img {
     width: 100%;
+    border-radius: .3em;
     border: 1px solid #000000;
 }
 
@@ -7,9 +8,12 @@ img {
     transition: opacity 0.2s;
     position: absolute;
     /* background-color: #ff0000; */
-    border: 1px solid #ffffff;
-    color: #ffffff;
-    left: -6px;
+    /* border: 1px solid #ffffff; */
+    background-color: #111111dd;
+    border-radius: .1em;
+    /* color: #ffffff; */
+    color: #ffffffdd;
+    left: 2px;
     /* top: -6px; */
     font-size: .8em;
     width: 1.8em;
@@ -17,12 +21,20 @@ img {
     text-align: center;
 }
 
+.delete:hover {
+    background-color: #b33e3edd;
+}
+
+.save:hover {
+    background-color: #383bbadd;
+}
+
 .delete {
-    top: -6px;
-    background-color: #ff0000;
+    top: 2px;
+    /* background-color: #ff0000; */
 }
 
 .save {
-    bottom: -6px;
-    background-color: #3c00ff;
+    bottom: 2px;
+    /* background-color: #3c00ff; */
 }
