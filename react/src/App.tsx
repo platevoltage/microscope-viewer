@@ -30,27 +30,18 @@ function App() {
   },[snapshots]);
 
   useEffect(() => {
-    const removeEventListenerZoomReset = window.api?.zoomReset(() => {
-      setZoom(0);
-    }); 
-    const removeEventListenerZoomIn = window.api?.zoomIn(() => {
-      zoomIn();
-    }); 
-    const removeEventListenerZoomOut = window.api?.zoomOut(() => {
-      zoomOut();
-    }); 
-    const removeEventListenerRotateLeft = window.api?.rotateLeft(() => {
-      rotateCCW();
-    }); 
-    const removeEventListenerRotateRight = window.api?.rotateRight(() => {
-      rotateCW();
-    }); 
-
+    const removeEventListenerZoomReset = window.api?.zoomReset(() => setZoom(0)); 
+    const removeEventListenerZoomIn = window.api?.zoomIn(() => zoomIn()); 
+    const removeEventListenerZoomOut = window.api?.zoomOut(() => zoomOut()); 
+    const removeEventListenerRotateLeft = window.api?.rotateLeft(() => rotateCCW()); 
+    const removeEventListenerRotateRight = window.api?.rotateRight(() => rotateCW()); 
     return () => {
       if (window.api) {
         removeEventListenerZoomReset();
         removeEventListenerZoomIn();
         removeEventListenerZoomOut();
+        removeEventListenerRotateLeft();
+        removeEventListenerRotateRight();
       }
     }
   },[zoom, angle])

@@ -47,8 +47,8 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
           canvas.height = height || 100;
           canvas.width = width || 100;
           setRatio((height||4) / (width||3));
-          canvas.style.width = "1000px";
-          canvas.style.height = "1000px";
+          // canvas.style.width = "1000px";
+          // canvas.style.height = "1000px";
           video.srcObject = stream;
         }
       }
