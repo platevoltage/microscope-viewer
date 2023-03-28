@@ -17,12 +17,17 @@
 }
 
 .HUD button, .HUD select {
-    border: 1px solid #dddddd;
-    background-color: #111111bb;
-    color: #ffffff;
-    border-radius: .1em;
+    border: none;
+    background-color: #111111dd;
+    /* color: #ffffff; */
+    color: #ffffffdd;
+    border-radius: .4em;
     margin: .1em;
-    padding: .3em;
+    padding: .3em .6em .3em .6em;
+}
+
+.HUD button:hover, .HUD select:hover {
+    background-color: #555555dd;
 }
 
 button.snapshot, button.close-snapshot {
@@ -30,11 +35,13 @@ button.snapshot, button.close-snapshot {
     top: 1em;
     right: 1em;
     /* background-color: #ff0000; */
-    border-width: 2px;
+    border: 2px solid #ffffff;
+    /* border-width: 2px; */
     width: 2em;
     height: 2em;
     display: flex;
     justify-content: center;
+    padding: .3em;
 }
 
 button.snapshot {
