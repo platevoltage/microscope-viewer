@@ -48,8 +48,9 @@ app.setAboutPanelOptions({
 });
 
 app.whenReady().then(async () => {
-  systemPreferences.askForMediaAccess("camera");
   const win = createWindow();
+  systemPreferences.askForMediaAccess("camera");
+
   //get persistent data from localStorage
   const localStorage = await win.webContents.executeJavaScript('({...localStorage});', true);
   if ("width" && "height" in localStorage ) {
