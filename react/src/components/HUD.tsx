@@ -89,6 +89,7 @@ export default function HUD({zoomIn, zoomOut, zoomActual, rotateCCW, rotateCW, d
                     )}
 
                 </select>
+    
 
                 {showSnapshot ? 
                     <button className="close-snapshot" onClick={closeSnapshot}>

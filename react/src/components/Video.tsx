@@ -40,9 +40,6 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
     },[zoom, angle]);
 
 
-
-
-
     async function getVideo() {
       clearInterval(intervalId);
       try {
@@ -61,8 +58,10 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
           //FPS
           let count = 0;
           const frameCb = () => {
+            const time = video.requestVideoFrameCallback(frameCb);
             count++;
-            video.requestVideoFrameCallback(frameCb);
+            console.log(time, count);
+
           }
           frameCb();
 
@@ -82,7 +81,7 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
             constraints.height = actualHeight;
             constraints.width = actualWidth;
             setRatio(actualHeight / actualWidth);
-            stream.getTracks()[0].applyConstraints(constraints);
+            track.applyConstraints(constraints);
           }
           video.srcObject = stream;
         }
