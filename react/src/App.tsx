@@ -23,6 +23,7 @@ function App() {
   const [snapshots, setSnapshots] = useState<string[]>([]);
   const [takeSnapshot, setTakeSnapshot] = useState({});
   const [snapshotToShow, setSnapshotToShow] = useState(-1);
+  const [framerate, setFramerate] = useState(0);
 
   useEffect(() => {
     console.log(snapshots);

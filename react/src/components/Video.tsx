@@ -19,6 +19,7 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
     let transitionDuration = ".2s";
     const [flashOpacity, setFlashOpacity] = useState<number>(0);
     const [flashTransition, setFlashTransition] = useState<string>("opacity 0s");
+    const [intervalId, setIntervalId] = useState<NodeJS.Timer>();
   
     const video = videoElement.current;
     const canvas = canvasElement.current;
@@ -26,7 +27,8 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
 
 
     useEffect(() => {
-      getVideo();  
+      getVideo();
+      return () => clearInterval(intervalId);
     },[device]);
 
     useEffect(() => {
@@ -38,6 +40,7 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
 
 
     async function getVideo() {
+      clearInterval(intervalId);
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ 
             video: {
@@ -55,18 +58,20 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
           const track = stream.getTracks()[0];
           const constraints = track.getConstraints();
           const { height, width } = track.getCapabilities();
-
+          
+          //FPS
           let count = 0;
           const cb = () => {
             count++;
             video.requestVideoFrameCallback(cb);
           }
           cb();
-          setInterval(() => {
+          const id = setInterval(() => {
             console.log(count);
             count = 0;
-          },1000)
-   
+          },1000);
+          setIntervalId(id);
+          //
           
           if (height && width) {
             const actualHeight = height.max||480;
