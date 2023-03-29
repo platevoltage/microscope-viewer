@@ -42,16 +42,16 @@ app.setAboutPanelOptions({
 });
 
 app.whenReady().then(async () => {
-  const win = createWindow();
+  const mainWindow = createWindow();
   systemPreferences.askForMediaAccess("camera");
 
   //get persistent data from localStorage
-  const localStorage = await win.webContents.executeJavaScript('({...localStorage});', true);
+  const localStorage = await mainWindow.webContents.executeJavaScript('({...localStorage});', true);
   if ("width" && "height" in localStorage ) {
-    win.setSize(+localStorage.width, +localStorage.height);
+    mainWindow.setSize(+localStorage.width, +localStorage.height);
   }
   if ("x" && "y" in localStorage ) {
-    win.setPosition(+localStorage.x, +localStorage.y);
+    mainWindow.setPosition(+localStorage.x, +localStorage.y);
   }
 
   //register keyboard shortcuts
@@ -63,10 +63,10 @@ app.whenReady().then(async () => {
   globalShortcut.register('Shift+CommandOrControl+L', () => {});
 
   //saves window position when moved
-  win.on('moved', () => {
-    const [x, y] = win.getPosition();
-    win.webContents.executeJavaScript(`localStorage.setItem("x", "${x}")`, true);
-    win.webContents.executeJavaScript(`localStorage.setItem("y", "${y}")`, true);
+  mainWindow.on('moved', () => {
+    const [x, y] = mainWindow.getPosition();
+    mainWindow.webContents.executeJavaScript(`localStorage.setItem("x", "${x}")`, true);
+    mainWindow.webContents.executeJavaScript(`localStorage.setItem("y", "${y}")`, true);
   })
   
   //waits for device list
@@ -80,11 +80,11 @@ app.whenReady().then(async () => {
         type: "radio",
         checked: device.selected,
         id: i,
-        click: () => win.webContents.send('set-device', i),
+        click: () => mainWindow.webContents.send('set-device', i),
       });
     });
     
-    const menu = Menu.buildFromTemplate(getMenuConfig(win, deviceMenu));
+    const menu = Menu.buildFromTemplate(getMenuConfig(mainWindow, deviceMenu));
     Menu.setApplicationMenu(menu);
 
     //syncs device menu when device is changed
@@ -97,7 +97,7 @@ app.whenReady().then(async () => {
 
   });
 
-  win.show();
+  mainWindow.show();
 
 })
 
