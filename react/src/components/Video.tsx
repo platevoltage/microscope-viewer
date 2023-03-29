@@ -48,13 +48,10 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
             }
         })
         if (video && canvas) {
-          console.log(navigator.mediaDevices.getSupportedConstraints());
-          console.log(stream.getTracks()[0].getCapabilities());
-          console.log(stream.getTracks());
-
-          const { height, width } = stream.getTracks()[0].getCapabilities();
+          const track = stream.getTracks()[0];
+          const constraints = track.getConstraints();
+          const { height, width } = track.getCapabilities();
           
-          const constraints = stream.getTracks()[0].getConstraints();
           if (height && width) {
             const actualHeight = height.max||480;
             const actualWidth = width.max||640;
@@ -63,11 +60,8 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
             constraints.height = actualHeight;
             constraints.width = actualWidth;
             setRatio(actualHeight / actualWidth);
+            stream.getTracks()[0].applyConstraints(constraints);
           }
-          stream.getTracks()[0].applyConstraints(constraints);
-          // canvas.height = height as number || 1080;
-          // canvas.width = width as number || 1920;
-          // setRatio((height as number||4) / (width as number||3));
 
           video.srcObject = stream;
         }
