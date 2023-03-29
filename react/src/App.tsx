@@ -179,13 +179,13 @@ function App() {
 
 
       <div>
-        <Video zoom={zoom} angle={angle} device={device} addImage={addImage} takeSnapshot={takeSnapshot} snapshotToShow={snapshots[snapshotToShow]} />
+        <Video zoom={zoom} angle={angle} device={device} addImage={addImage} takeSnapshot={takeSnapshot} snapshotToShow={snapshots[snapshotToShow]} setFramerate={setFramerate}/>
       </div>
 
       {snapshotToShow > -1 && <div style={{width: "100vw", height: "100vh", position: "fixed", top: 0, border: "10px solid black", pointerEvents: "none"}}></div>}
 
       <div style={{position: "absolute", transitionProperty: "opacity, left", transitionDuration: ".5s, .1s", opacity: showHUD ? 1 : 0, left: `${showSidebar ? 11 : 1}em`, zIndex: "2"}}>
-        <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList} takeSnapshot={snapshot} closeSnapshot={closeSnapshot} showSnapshot={snapshotToShow > -1}/>
+        <HUD zoomIn={zoomIn} zoomOut={zoomOut} rotateCCW={rotateCCW} rotateCW={rotateCW} device={device} setDevice={setDevice} deviceList={deviceList} setDeviceList={setDeviceList} takeSnapshot={snapshot} closeSnapshot={closeSnapshot} showSnapshot={snapshotToShow > -1} framerate={framerate}/>
         {!showSidebar && <SidebarIcon toggleSidebar={toggleSidebar} />}
       </div>
 

@@ -13,10 +13,11 @@ interface Props {
     takeSnapshot: () => void;
     closeSnapshot: () => void;
     showSnapshot: boolean;
+    framerate: number;
 }
 
 
-export default function HUD({zoomIn, zoomOut, rotateCCW, rotateCW, device, setDevice, deviceList, takeSnapshot, closeSnapshot, showSnapshot}: Props) {
+export default function HUD({zoomIn, zoomOut, rotateCCW, rotateCW, device, setDevice, deviceList, takeSnapshot, closeSnapshot, showSnapshot, framerate}: Props) {
     const [ deviceMenuSelection, setDeviceMenuSelection ] = useState(0);
     function handleChange(e: any) {
         const index: number = e.target.value;
@@ -70,6 +71,7 @@ export default function HUD({zoomIn, zoomOut, rotateCCW, rotateCW, device, setDe
                     <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
                 </svg>
             </button>
+            <button>{framerate} fps</button>
 
             <select name="device-select" id="device-select" value={deviceMenuSelection} onChange={handleChange}>
 

@@ -9,9 +9,10 @@ interface Props {
     addImage: (dataURL: string) => void;
     takeSnapshot: {};
     snapshotToShow?: string;
+    setFramerate: (value: number) => void;
 }
 
-export default function Video({zoom, angle, device, addImage, takeSnapshot, snapshotToShow}: Props) {
+export default function Video({zoom, angle, device, addImage, takeSnapshot, snapshotToShow, setFramerate}: Props) {
     const videoElement = useRef<HTMLVideoElement>(null);
     const canvasElement = useRef<HTMLCanvasElement>(null);
     const [ratio, setRatio] = useState<number>(4/3);
@@ -25,6 +26,9 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
     const canvas = canvasElement.current;
     const context = canvas?.getContext("2d");
 
+    useEffect(() => {
+      return () => clearInterval(intervalId);
+    },[])
 
     useEffect(() => {
       getVideo();
@@ -51,7 +55,7 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
               // height: { ideal: 1080 },
               // sampleRate: 1,
    
-              // frameRate: 30 
+              frameRate: 15 
             }
         })
         if (video && canvas) {
@@ -68,6 +72,7 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
           cb();
           const id = setInterval(() => {
             console.log(count);
+            setFramerate(count);
             count = 0;
           },1000);
           setIntervalId(id);
