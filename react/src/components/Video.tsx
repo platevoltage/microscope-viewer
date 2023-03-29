@@ -40,8 +40,8 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
               deviceId: {
                 exact: device ? device.deviceId : "",
               },
-              width: { ideal: 1920 },
-              height: { ideal: 1080 },
+              // width: { ideal: 1920 },
+              // height: { ideal: 1080 },
               // sampleRate: 1,
    
               // frameRate: 30 
@@ -50,25 +50,24 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
         if (video && canvas) {
           console.log(navigator.mediaDevices.getSupportedConstraints());
           console.log(stream.getTracks()[0].getCapabilities());
-          console.log(stream.getTracks()[0].getConstraints());
+          console.log(stream.getTracks());
 
-          const { height, width } = stream.getTracks()[0].getConstraints();
-          // const constraints = stream.getTracks()[0].getConstraints();
-          if (height) {
-            // const actualHeight = ((height.max||480) < 1080) ? height.max : 1080;
-            // constraints.height = actualHeight
-            // if (actualHeight) canvas.height = actualHeight
-            // console.log(actualHeight);
+          const { height, width } = stream.getTracks()[0].getCapabilities();
+          
+          const constraints = stream.getTracks()[0].getConstraints();
+          if (height && width) {
+            const actualHeight = height.max||480;
+            const actualWidth = width.max||640;
+            if (actualHeight) canvas.height = actualHeight;
+            if (actualWidth) canvas.width = actualWidth;
+            constraints.height = actualHeight;
+            constraints.width = actualWidth;
+            setRatio(actualHeight / actualWidth);
           }
-          if (width) {
-            // const actualWidth = ((width.max||640) < 1920) ? width.max : 1920;
-            // constraints.width = actualWidth
-            // if (actualWidth) canvas.width = actualWidth
-          }
-          // stream.getTracks()[0].applyConstraints(constraints);
-          canvas.height = height as number || 1080;
-          canvas.width = width as number || 1920;
-          setRatio((height as number||4) / (width as number||3));
+          stream.getTracks()[0].applyConstraints(constraints);
+          // canvas.height = height as number || 1080;
+          // canvas.width = width as number || 1920;
+          // setRatio((height as number||4) / (width as number||3));
 
           video.srcObject = stream;
         }
