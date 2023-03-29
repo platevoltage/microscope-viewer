@@ -20,6 +20,11 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
     const [flashOpacity, setFlashOpacity] = useState<number>(0);
     const [flashTransition, setFlashTransition] = useState<string>("opacity 0s");
   
+    const video = videoElement.current;
+    const canvas = canvasElement.current;
+    const context = canvas?.getContext("2d");
+
+
     useEffect(() => {
       getVideo();  
     },[device]);
@@ -29,9 +34,8 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
     },[zoom, angle]);
 
 
-    const video = videoElement.current;
-    const canvas = canvasElement.current;
-    const context = canvas?.getContext("2d");
+
+
 
     async function getVideo() {
       try {
@@ -51,6 +55,18 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
           const track = stream.getTracks()[0];
           const constraints = track.getConstraints();
           const { height, width } = track.getCapabilities();
+
+          let count = 0;
+          const cb = () => {
+            count++;
+            video.requestVideoFrameCallback(cb);
+          }
+          cb();
+          setInterval(() => {
+            console.log(count);
+            count = 0;
+          },1000)
+   
           
           if (height && width) {
             const actualHeight = height.max||480;
@@ -64,6 +80,7 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
           }
 
           video.srcObject = stream;
+
         }
       }
       catch(err) {
