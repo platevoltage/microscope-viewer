@@ -80,7 +80,6 @@ function App() {
       let _device = deviceList[0];
       for (let i in deviceList) {
         if (deviceList[i].label.includes("Microscope")) {
-          console.log("found device", i)
           _device = deviceList[i];
           break;
         }
