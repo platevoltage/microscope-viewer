@@ -40,15 +40,36 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
               deviceId: {
                 exact: device ? device.deviceId : "",
               },
+              width: { ideal: 1920 },
+              height: { ideal: 1080 },
+              // sampleRate: 1,
+   
+              // frameRate: 30 
             }
         })
         if (video && canvas) {
-          const { height, width } = stream.getTracks()[0].getSettings();
-          canvas.height = height || 100;
-          canvas.width = width || 100;
-          setRatio((height||4) / (width||3));
-          // canvas.style.width = "1000px";
-          // canvas.style.height = "1000px";
+          console.log(navigator.mediaDevices.getSupportedConstraints());
+          console.log(stream.getTracks()[0].getCapabilities());
+          console.log(stream.getTracks()[0].getConstraints());
+
+          const { height, width } = stream.getTracks()[0].getConstraints();
+          // const constraints = stream.getTracks()[0].getConstraints();
+          if (height) {
+            // const actualHeight = ((height.max||480) < 1080) ? height.max : 1080;
+            // constraints.height = actualHeight
+            // if (actualHeight) canvas.height = actualHeight
+            // console.log(actualHeight);
+          }
+          if (width) {
+            // const actualWidth = ((width.max||640) < 1920) ? width.max : 1920;
+            // constraints.width = actualWidth
+            // if (actualWidth) canvas.width = actualWidth
+          }
+          // stream.getTracks()[0].applyConstraints(constraints);
+          canvas.height = height as number || 1080;
+          canvas.width = width as number || 1920;
+          setRatio((height as number||4) / (width as number||3));
+
           video.srcObject = stream;
         }
       }

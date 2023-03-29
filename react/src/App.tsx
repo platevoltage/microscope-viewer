@@ -165,8 +165,9 @@ function App() {
   }
 
   async function getDevices() {
-    await navigator.mediaDevices.getUserMedia({video: true}); 
+    // await navigator.mediaDevices.getUserMedia({video: true}); 
     const devices = await navigator.mediaDevices.enumerateDevices();
+    console.log(devices);
     return devices;
   }
   
