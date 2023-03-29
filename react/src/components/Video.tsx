@@ -55,7 +55,7 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
               // height: { ideal: 1080 },
               // sampleRate: 1,
    
-              frameRate: 15 
+              // frameRate: 30
             }
         })
         if (video && canvas) {
@@ -65,24 +65,25 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
           
           //FPS
           let count = 0;
-          const cb = () => {
+          const frameCb = () => {
             count++;
-            video.requestVideoFrameCallback(cb);
+            video.requestVideoFrameCallback(frameCb);
           }
-          cb();
-          const id = setInterval(() => {
-            console.log(count);
-            setFramerate(count);
-            count = 0;
-          },1000);
-          setIntervalId(id);
+          frameCb();
+
+          setIntervalId(
+              setInterval(() => {
+              setFramerate(count);
+              count = 0;
+            },1000)
+          );
           //
           
           if (height && width) {
             const actualHeight = height.max||480;
             const actualWidth = width.max||640;
-            if (actualHeight) canvas.height = actualHeight;
-            if (actualWidth) canvas.width = actualWidth;
+            canvas.height = actualHeight;
+            canvas.width = actualWidth;
             constraints.height = actualHeight;
             constraints.width = actualWidth;
             setRatio(actualHeight / actualWidth);

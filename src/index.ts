@@ -7,7 +7,7 @@ const createWindow = () => {
   const win = new BrowserWindow({
     width: 780,
     height: 550,
-    title: "Microscope",
+    title: "Microscopic",
     minHeight: 300,
     minWidth: 400,
     visualEffectState: "active",
@@ -34,7 +34,7 @@ const createWindow = () => {
 };
 
 app.setAboutPanelOptions({
-  applicationName: "Microscope Viewer", 
+  applicationName: "Microscopic", 
   applicationVersion: "Version",
   version: "1.0.0",
   // credits: "Credits",
