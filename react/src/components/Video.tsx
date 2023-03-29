@@ -51,11 +51,6 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
               deviceId: {
                 exact: device ? device.deviceId : "",
               },
-              // width: { ideal: 1920 },
-              // height: { ideal: 1080 },
-              // sampleRate: 1,
-   
-              // frameRate: 30
             }
         })
         if (video && canvas) {
@@ -89,9 +84,7 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
             setRatio(actualHeight / actualWidth);
             stream.getTracks()[0].applyConstraints(constraints);
           }
-
           video.srcObject = stream;
-
         }
       }
       catch(err) {

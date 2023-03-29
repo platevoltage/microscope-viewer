@@ -75,9 +75,20 @@ function App() {
   },[]);
 
   useEffect(() => {
+    //if no device stored in localStorage
     if (deviceList && !device) {
-      setDevice(deviceList[0]);
+      let _device = deviceList[0];
+      for (let i in deviceList) {
+        if (deviceList[i].label.includes("Microscope")) {
+          console.log("found device", i)
+          _device = deviceList[i];
+          break;
+        }
+      }
+      setDevice(_device);
     }
+    //
+
     if (deviceList) {
       const _deviceList = [];
       for (let _device of deviceList) {
