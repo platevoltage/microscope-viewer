@@ -16,10 +16,7 @@ root.render(
       <Routes>
         <Route path="/nag" element={<Nagware />} />
         <Route path="/" element={<App />}/>
-          {/* <Route index element={<App />} /> */}
       </Routes>
-        {/* </Route> */}
-
     </HashRouter>
   </React.StrictMode>
 );

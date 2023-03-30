@@ -7,7 +7,7 @@
     /* left: -10em;
     top: 0; */
     /* z-index: 100; */
-    backdrop-filter: blur(30px);
+    backdrop-filter: blur(20px);
     border-right: 1px solid #000000;
     padding-top: 3em;
     overflow-y: scroll;

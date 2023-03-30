@@ -12,7 +12,7 @@ const createMainWindow = () => {
     minHeight: 300,
     minWidth: 400,
     visualEffectState: "active",
-    // vibrancy: 'sidebar',
+    vibrancy: 'sidebar',
     titleBarStyle: "hidden",
     trafficLightPosition: {x: 20, y: 20},
     // frame: false,
@@ -43,7 +43,7 @@ const createNagwareWindow = (mainWindow: BrowserWindow) => {
     visualEffectState: "active",
     // vibrancy: 'sidebar',
     titleBarStyle: "hidden",
-    trafficLightPosition: {x: 20, y: 20},
+    // trafficLightPosition: {x: 20, y: 20},
     // frame: false,
     parent: mainWindow,
     modal: true,
@@ -99,6 +99,12 @@ app.whenReady().then(async () => {
     const [x, y] = mainWindow.getPosition();
     mainWindow.webContents.executeJavaScript(`localStorage.setItem("x", "${x}")`, true);
     mainWindow.webContents.executeJavaScript(`localStorage.setItem("y", "${y}")`, true);
+  })
+  mainWindow.on('blur', () => {
+    mainWindow.setTrafficLightPosition({x: -20, y: -20})
+  })
+  mainWindow.on('focus', () => {
+    mainWindow.setTrafficLightPosition({x: 20, y: 20})
   })
   
   //waits for device list
