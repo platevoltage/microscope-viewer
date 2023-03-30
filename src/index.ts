@@ -37,8 +37,8 @@ const createMainWindow = () => {
 
 const createNagwareWindow = (mainWindow: BrowserWindow) => {
   const win = new BrowserWindow({
-    width: 780,
-    height: 550,
+    width: 400,
+    height: 300,
     // title: "Microscopic",
     visualEffectState: "active",
     // vibrancy: 'sidebar',
