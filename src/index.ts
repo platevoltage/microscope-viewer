@@ -2,8 +2,7 @@ import { app, BrowserWindow, Menu, systemPreferences, globalShortcut, ipcMain } 
 import * as path from 'path';
 import { getMenuConfig } from './menu';
 
-
-const createWindow = () => {
+const createMainWindow = () => {
   const win = new BrowserWindow({
     width: 780,
     height: 550,
@@ -23,8 +22,39 @@ const createWindow = () => {
     }
   });
 
-  // win.loadFile(path.join(__dirname, './build/index.html')) 
-  win.loadURL('http://localhost:3000');
+  // win.loadURL(`file://${path.join(__dirname, '../dist/build/index.html#/app')}`); 
+  win.loadURL('http://localhost:3000#/app');
+
+  win.on('page-title-updated', function(e) {
+    e.preventDefault()
+  });
+
+  return win;    
+};
+
+
+const createNagwareWindow = () => {
+  const win = new BrowserWindow({
+    width: 780,
+    height: 550,
+    // title: "Microscopic",
+    minHeight: 300,
+    minWidth: 400,
+    visualEffectState: "active",
+    vibrancy: 'sidebar',
+    titleBarStyle: "hidden",
+    trafficLightPosition: {x: 20, y: 20},
+    // frame: false,
+    show: false,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      // preload: path.join(__dirname, 'preload.js')
+    }
+  });
+
+  // win.loadURL(`file://${path.join(__dirname, '../dist/build/index.html#/nag')}`); 
+  win.loadURL('http://localhost:3000#/nag');
 
   win.on('page-title-updated', function(e) {
     e.preventDefault()
@@ -42,7 +72,7 @@ app.setAboutPanelOptions({
 });
 
 app.whenReady().then(async () => {
-  const mainWindow = createWindow();
+  const mainWindow = createMainWindow();
   systemPreferences.askForMediaAccess("camera");
 
   //get persistent data from localStorage
@@ -98,6 +128,10 @@ app.whenReady().then(async () => {
   });
 
   mainWindow.show();
+  mainWindow.on('close', () => {
+    const nagwareWindow = createNagwareWindow();
+    nagwareWindow.show();
+  })
 
 })
 

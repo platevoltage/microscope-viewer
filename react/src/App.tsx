@@ -1,4 +1,5 @@
 import {useState, useEffect, useRef} from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
 import Video from "./components/Video"
 import HUD from './components/HUD';
@@ -187,10 +188,10 @@ function App() {
   }
   
   return (
+
     <div className="App" onMouseEnter={() => setShowHUD(true)} onMouseLeave={() => setShowHUD(false)}>
       
       <div className="drag"></div>
-
 
       <div>
         <Video zoom={zoom} angle={angle} device={device} addImage={addImage} takeSnapshot={takeSnapshot} snapshotToShow={snapshots[snapshotToShow]} setFramerate={setFramerate}/>
@@ -211,6 +212,7 @@ function App() {
 
 
     </div>
+
   );
 }
 

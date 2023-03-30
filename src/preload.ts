@@ -47,13 +47,3 @@ contextBridge.exposeInMainWorld("api", {
     // sendDevicesToMain: (data: any) => console.log(data)
 
 });
-
-
-// contextBridge.exposeInMainWorld("api2", {
-//     readData: (device: string, force?: boolean) => ipcRenderer.invoke('readData', device, force),
-//     writeData: (file: Buffer, device: string, force?: boolean) => ipcRenderer.invoke('writeData', file, device, force),
-//     getSupportedDevices: () => ipcRenderer.invoke('getSupportedDevices'),
-//     getInfo: (device: string) => ipcRenderer.invoke('getInfo', device),
-//     saveFile: (file: Buffer) => ipcRenderer.invoke('saveFile', file),
-// });
-
