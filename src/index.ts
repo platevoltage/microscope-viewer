@@ -2,6 +2,8 @@ import { app, BrowserWindow, Menu, systemPreferences, globalShortcut, ipcMain } 
 import * as path from 'path';
 import { getMenuConfig } from './menu';
 
+let showNagwareWindow = true;
+
 const createMainWindow = () => {
   const win = new BrowserWindow({
     width: 780,
@@ -10,7 +12,7 @@ const createMainWindow = () => {
     minHeight: 300,
     minWidth: 400,
     visualEffectState: "active",
-    vibrancy: 'sidebar',
+    // vibrancy: 'sidebar',
     titleBarStyle: "hidden",
     trafficLightPosition: {x: 20, y: 20},
     // frame: false,
@@ -33,18 +35,18 @@ const createMainWindow = () => {
 };
 
 
-const createNagwareWindow = () => {
+const createNagwareWindow = (mainWindow: BrowserWindow) => {
   const win = new BrowserWindow({
     width: 780,
     height: 550,
     // title: "Microscopic",
-    minHeight: 300,
-    minWidth: 400,
     visualEffectState: "active",
-    vibrancy: 'sidebar',
+    // vibrancy: 'sidebar',
     titleBarStyle: "hidden",
     trafficLightPosition: {x: 20, y: 20},
     // frame: false,
+    parent: mainWindow,
+    modal: true,
     show: false,
     webPreferences: {
       nodeIntegration: false,
@@ -126,11 +128,17 @@ app.whenReady().then(async () => {
     });
 
   });
-
   mainWindow.show();
-  mainWindow.on('close', () => {
-    const nagwareWindow = createNagwareWindow();
-    nagwareWindow.show();
+  mainWindow.on('close', (e) => {
+    if (showNagwareWindow) {
+      e.preventDefault();
+      const nagwareWindow = createNagwareWindow(mainWindow);
+      nagwareWindow.show();
+      nagwareWindow.on('close', () => {
+        showNagwareWindow = false;
+        app.quit();
+      })
+    }
   })
 
 })
