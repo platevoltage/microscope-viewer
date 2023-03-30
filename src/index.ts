@@ -142,14 +142,12 @@ app.whenReady().then(async () => {
       const nagwareWindow = createNagwareWindow(mainWindow);
       nagwareWindow.webContents.on('did-finish-load', () => {
         nagwareWindow.show();
-      })
+      });
       ipcMain.on('quit', () => {
         nagwareWindow.close();
-      })
-      nagwareWindow.on('close', () => {
         showNagwareWindow = false;
         mainWindow.close();
-      })
+      });
     }
   })
 
