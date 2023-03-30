@@ -51,7 +51,7 @@ const createNagwareWindow = (mainWindow: BrowserWindow) => {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      // preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js')
     }
   });
 
@@ -134,6 +134,9 @@ app.whenReady().then(async () => {
       e.preventDefault();
       const nagwareWindow = createNagwareWindow(mainWindow);
       nagwareWindow.show();
+      ipcMain.on('quit', () => {
+        nagwareWindow.close();
+      })
       nagwareWindow.on('close', () => {
         showNagwareWindow = false;
         app.quit();
