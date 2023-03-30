@@ -1,5 +1,4 @@
 import {useState, useEffect, useRef} from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
 import Video from "./components/Video"
 import HUD from './components/HUD';
