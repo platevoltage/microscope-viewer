@@ -139,7 +139,9 @@ app.whenReady().then(async () => {
     if (showNagwareWindow) {
       e.preventDefault();
       const nagwareWindow = createNagwareWindow(mainWindow);
-      nagwareWindow.show();
+      nagwareWindow.webContents.on('did-finish-load', () => {
+        nagwareWindow.show();
+      })
       ipcMain.on('quit', () => {
         nagwareWindow.close();
       })
