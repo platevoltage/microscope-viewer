@@ -15,7 +15,7 @@ root.render(
     <HashRouter>
       <Routes>
         <Route path="/nag" element={<Nagware />} />
-        <Route path="/app" element={<App />}/>
+        <Route path="/" element={<App />}/>
           {/* <Route index element={<App />} /> */}
       </Routes>
         {/* </Route> */}
