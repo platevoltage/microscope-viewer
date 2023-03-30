@@ -136,6 +136,7 @@ app.whenReady().then(async () => {
   });
   mainWindow.show();
   mainWindow.on('close', (e) => {
+    //shows nagware dialog if showNagwareWindow = true;
     if (showNagwareWindow) {
       e.preventDefault();
       const nagwareWindow = createNagwareWindow(mainWindow);
@@ -147,7 +148,7 @@ app.whenReady().then(async () => {
       })
       nagwareWindow.on('close', () => {
         showNagwareWindow = false;
-        app.quit();
+        mainWindow.close();
       })
     }
   })
