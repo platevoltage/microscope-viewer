@@ -28,17 +28,12 @@ export default function Video({zoom, angle, device, addImage, takeSnapshot, snap
 
     useEffect(() => {
       return () => clearInterval(intervalId);
-    },[])
+    },[intervalId])
 
     useEffect(() => {
       getVideo();
       return () => clearInterval(intervalId);
     },[device]);
-
-    useEffect(() => {
-      // transitionDuration = ".2s";    
-    },[zoom, angle]);
-
 
     async function getVideo() {
       clearInterval(intervalId);
