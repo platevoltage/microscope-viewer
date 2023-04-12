@@ -18,18 +18,12 @@ const createMainWindow = () => {
     // frame: false,
     show: false,
     webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
     }
   });
 
   // win.loadURL(`file://${path.join(__dirname, '../dist/build/index.html')}`); 
   win.loadURL('http://localhost:3000/');
-
-  win.on('page-title-updated', function(e) {
-    e.preventDefault()
-  });
 
   return win;    
 };
@@ -39,28 +33,18 @@ const createNagwareWindow = (mainWindow: BrowserWindow) => {
   const win = new BrowserWindow({
     width: 400,
     height: 300,
-    // title: "Microscopic",
     visualEffectState: "active",
-    // vibrancy: 'sidebar',
     titleBarStyle: "hidden",
-    // trafficLightPosition: {x: 20, y: 20},
-    // frame: false,
     parent: mainWindow,
     modal: true,
     show: false,
     webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
     }
   });
 
   // win.loadURL(`file://${path.join(__dirname, '../dist/build/index.html#/nag')}`); 
   win.loadURL('http://localhost:3000#/nag');
-
-  win.on('page-title-updated', function(e) {
-    e.preventDefault()
-  });
 
   return win;    
 };

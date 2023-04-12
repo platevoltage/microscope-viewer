@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import './App.css';
 import Video from "./components/Video"
 import HUD from './components/HUD';
@@ -12,8 +12,8 @@ declare global {
 }
 
 function App() {
-  const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
+  const [, setWidth] = useState(0);
+  const [, setHeight] = useState(0);
   const [zoom, setZoom] = useState(0);
   const [angle, setAngle] = useState(0);
   const [device, setDevice] = useState<MediaDeviceInfo>();
@@ -25,17 +25,34 @@ function App() {
   const [snapshotToShow, setSnapshotToShow] = useState(-1);
   const [framerate, setFramerate] = useState(0);
 
-  useEffect(() => {
-    console.log(snapshots);
-    // localStorage.setItem("snapshots", JSON.stringify(snapshots));
-  },[snapshots]);
+  const zoomIn = useCallback(() => {
+    setZoom(zoom + 10);
+  },[zoom]);
+
+  const zoomOut = useCallback(() => {
+    setZoom(zoom > 10 ? zoom - 10 : 0);
+  }, [zoom])
+
+  function zoomActual() {
+    setZoom(0);
+    setAngle(0);
+  }
+
+  const rotateCCW = useCallback(() => {
+    setAngle(angle - 45);
+  },[angle])
+
+  const rotateCW = useCallback(() => {
+    setAngle(angle + 45);
+  },[angle])
+
 
   useEffect(() => {
     const removeEventListenerZoomReset = window.api?.zoomReset(() => setZoom(0)); 
-    const removeEventListenerZoomIn = window.api?.zoomIn(() => zoomIn()); 
-    const removeEventListenerZoomOut = window.api?.zoomOut(() => zoomOut()); 
-    const removeEventListenerRotateLeft = window.api?.rotateLeft(() => rotateCCW()); 
-    const removeEventListenerRotateRight = window.api?.rotateRight(() => rotateCW()); 
+    const removeEventListenerZoomIn = window.api?.zoomIn(zoomIn); 
+    const removeEventListenerZoomOut = window.api?.zoomOut(zoomOut); 
+    const removeEventListenerRotateLeft = window.api?.rotateLeft(rotateCCW); 
+    const removeEventListenerRotateRight = window.api?.rotateRight(rotateCW); 
     return () => {
       if (window.api) {
         removeEventListenerZoomReset();
@@ -45,12 +62,11 @@ function App() {
         removeEventListenerRotateRight();
       }
     }
-  },[zoom, angle])
+  },[zoom, angle, setZoom, zoomIn, zoomOut, rotateCCW, rotateCW])
   
 
 
   useEffect(() => {
-
     const savedDeviceString = localStorage.getItem("device");
     const savedSidebarString = localStorage.getItem("showSidebar");
     if (savedSidebarString) {
@@ -62,10 +78,10 @@ function App() {
       setDevice(savedDevice);
     }
 
-    (async() => {
-        const devices = await getDevices();
-        // console.log(devices);
-        setDeviceList(devices.filter(devices => devices.kind === "videoinput"));
+    (async () => {
+      const devices = await getDevices();
+      // console.log(devices);
+      setDeviceList(devices.filter(device => device.kind === "videoinput"));
     })();
 
     window.addEventListener("resize", handleResize);
@@ -110,6 +126,11 @@ function App() {
     if (device) localStorage.setItem("device", JSON.stringify(device));
   },[device]);
 
+  const toggleSidebar = useCallback(() => {
+    setShowSidebar(!showSidebar);
+  },[showSidebar])
+
+
   useEffect(() => {
     if (typeof showSidebar === "boolean") localStorage.setItem("showSidebar", (+showSidebar).toString());
     const removeEventListenerToggleSidebar = window.api?.toggleSidebar(() => {
@@ -118,39 +139,13 @@ function App() {
     return () => {
       if (window.api) removeEventListenerToggleSidebar();
     }
-  },[showSidebar]);
+  },[showSidebar, toggleSidebar]);
 
   function handleResize() {
     setHeight(window.innerHeight);
     setWidth(window.innerWidth);
     localStorage.setItem("height", window.innerHeight.toString());
     localStorage.setItem("width", window.innerWidth.toString());
-  }
-
-  function zoomIn() {
-      const _zoom = zoom+10;
-      setZoom(_zoom);
-  }
-  function zoomOut() {
-    let _zoom = zoom-10;
-    if (_zoom < 0) _zoom = 0;
-    setZoom(_zoom);;
-  }
-  function zoomActual() {
-    setZoom(0);
-    setAngle(0);
-}
-
-  function rotateCCW() {
-    setAngle(angle - 45);
-  }
-
-  function rotateCW() {
-    setAngle(angle + 45);
-  }
-
-  function toggleSidebar() {
-    setShowSidebar(!showSidebar);
   }
 
   function addImage(dataURL: string) {
