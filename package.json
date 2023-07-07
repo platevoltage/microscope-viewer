@@ -30,7 +30,13 @@
       "icon": "./icon.png"
     },
     "mac": {
-      "icon": "./icon.icns"
+      "icon": "./icon.icns",
+      "extendInfo": {
+        "NSCameraUsageDescription": "some description",
+        "com.apple.security.device.camera": true,
+        "com.apple.security.cs.allow-unsigned-executable-memory": true
+      },
+      "entitlements": "build/entitlements.mas.plist"
     }
   }
 }

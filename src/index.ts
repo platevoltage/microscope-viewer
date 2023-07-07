@@ -22,8 +22,8 @@ const createMainWindow = () => {
     }
   });
 
-  // win.loadURL(`file://${path.join(__dirname, '../dist/build/index.html')}`); 
-  win.loadURL('http://localhost:3000/');
+  win.loadURL(`file://${path.join(__dirname, '../dist/build/index.html')}`); 
+  // win.loadURL('http://localhost:3000/');
 
   return win;    
 };
